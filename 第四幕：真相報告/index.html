@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第四幕｜霧中無判</title>
+  <style>
+    :root {
+      --ink: #f8ecd2;
+      --muted: rgba(248,236,210,.72);
+      --paper: #ead8ae;
+      --paper-ink: #26180f;
+      --gold: #d9b464;
+      --line: rgba(217,180,100,.36);
+      --shadow: 0 28px 90px rgba(0,0,0,.58);
+      --font: "Noto Serif TC", "PMingLiU", "MingLiU", serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      font-family: var(--font);
+      font-variant-east-asian: traditional;
+      background: #050605;
+      overflow: hidden;
+    }
+
+    button { font: inherit; cursor: pointer; }
+
+    .ending {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(217,180,100,.1), transparent 34%),
+        #050605;
+      user-select: none;
+    }
+
+    .scene-image {
+      position: absolute;
+      inset: 0;
+      background-image: var(--scene-image);
+      background-size: cover;
+      background-position: center;
+      opacity: 1;
+      transition: opacity .55s ease, transform 7s ease;
+      transform: scale(1.015);
+    }
+
+    .scene-image.fade {
+      opacity: 0;
+    }
+
+    .veil {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.18) 48%, rgba(0,0,0,.72)),
+        radial-gradient(circle at 50% 50%, transparent 34%, rgba(0,0,0,.34));
+      pointer-events: none;
+    }
+
+    .title-mark {
+      position: absolute;
+      top: clamp(22px, 5vh, 52px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      text-shadow: 0 10px 28px rgba(0,0,0,.7);
+      pointer-events: none;
+    }
+
+    .title-mark small {
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .title-mark h1 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(2.4rem, 7vw, 6rem);
+      letter-spacing: .08em;
+    }
+
+    .caption {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(26px, 7vh, 70px);
+      width: min(860px, calc(100vw - 34px));
+      transform: translateX(-50%);
+      padding: clamp(16px, 3vw, 24px);
+      border: 1px solid rgba(217,180,100,.35);
+      border-radius: 10px;
+      background: rgba(5,6,5,.62);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      color: var(--ink);
+      font-size: clamp(1.18rem, 2.5vw, 1.82rem);
+      line-height: 1.85;
+      text-align: center;
+      opacity: 0;
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .caption.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hint {
+      position: absolute;
+      right: 18px;
+      bottom: 14px;
+      color: rgba(248,236,210,.58);
+      font-size: .92rem;
+      pointer-events: none;
+    }
+
+    .progress {
+      position: absolute;
+      left: 18px;
+      bottom: 14px;
+      color: rgba(248,236,210,.58);
+      font-size: .92rem;
+      pointer-events: none;
+    }
+
+    .summary {
+      position: relative;
+      z-index: 2;
+      width: min(920px, calc(100vw - 32px));
+      max-height: min(86vh, 820px);
+      overflow: auto;
+      padding: clamp(22px, 5vw, 42px);
+      border: 1px solid rgba(217,180,100,.42);
+      border-radius: 10px;
+      color: var(--paper-ink);
+      background:
+        linear-gradient(180deg, rgba(246,230,184,.96), rgba(214,190,137,.96));
+      box-shadow: var(--shadow);
+      text-align: center;
+      line-height: 1.9;
+      animation: rise .7s ease both;
+    }
+
+    .summary h2 {
+      margin: 0 0 14px;
+      color: #6e271f;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: .06em;
+    }
+
+    .summary p {
+      margin: 0 auto 16px;
+      max-width: 760px;
+      white-space: pre-line;
+      font-size: clamp(1.04rem, 2vw, 1.22rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .primary-btn, .ghost-btn {
+      min-height: 44px;
+      padding: 10px 18px;
+      border: 1px solid rgba(91,55,22,.42);
+      border-radius: 8px;
+      color: #25170d;
+      background: linear-gradient(180deg, #f4df9f, #c89045);
+      box-shadow: 0 12px 28px rgba(0,0,0,.18);
+      font-weight: 900;
+    }
+
+    .ghost-btn {
+      color: #f8ecd2;
+      border-color: rgba(217,180,100,.48);
+      background: rgba(29,23,16,.78);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 620px) {
+      .caption {
+        text-align: left;
+      }
+
+      .hint, .progress {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="endingScene" class="ending" aria-label="霧中無判結局過場">
+    <div id="sceneImage" class="scene-image"></div>
+    <div class="veil"></div>
+    <div class="title-mark">
+      <small>第四幕｜真相報告</small>
+      <h1>霧中無判</h1>
+    </div>
+    <div id="caption" class="caption"></div>
+    <div id="progress" class="progress">1 / 5</div>
+    <div class="hint">點擊任意處繼續</div>
+
+    <section id="summaryScreen" class="summary" hidden>
+      <h2>霧中無判</h2>
+      <p>你完成了案卷整理，卻沒有得到唯一答案。
+也許《竹藪中》的真相，不在於誰真正殺了武士，
+而在於每個人如何用自己的立場、羞恥、自尊與欲望，說出一個能保全自己的版本。
+
+真相並非消失，
+而是藏在每一次選擇、每一句辯解、每一道不願承認的目光之中。</p>
+      <div class="actions">
+        <button id="mapBtn" class="ghost-btn" type="button">回到審訊地圖</button>
+        <button id="againBtn" class="primary-btn" type="button">再次探案</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const ENDING_FRAMES = [
+      {
+        image: "../圖片/ending-01-scrolls.png",
+        narration: "案卷已滿，真相卻沒有因此靠近。"
+      },
+      {
+        image: "../圖片/ending-02-three-figures.png",
+        narration: "他們說的是同一場命案，卻各自守著不能失去的自己。"
+      },
+      {
+        image: "../圖片/ending-03-fragments.png",
+        narration: "證詞像碎片，能拼出輪廓，也能割開新的疑問。"
+      },
+      {
+        image: "../圖片/ending-04-bamboo-silence.png",
+        narration: "若每個人都只說出能承受的版本，那麼真相該由誰來承擔？"
+      },
+      {
+        image: "../圖片/ending-05-gate.png",
+        narration: "竹藪深處沒有最後的判決，只有人性向我們提出的叩問。"
+      }
+    ];
+
+    const GAME_KEYS = [
+      "adventure_start",
+      "bamboo_cover_seen",
+      "witness_woodcutter",
+      "witness_monk",
+      "witness_officer",
+      "witness_oldwoman",
+      "bamboo_report_woodcutter",
+      "bamboo_report_monk",
+      "bamboo_report_constable",
+      "bamboo_report_oldwoman",
+      "cert_woodcutter",
+      "cert_monk",
+      "cert_constable",
+      "cert_oldwoman",
+      "cert_dynasty",
+      "cert_idiom",
+      "cert_warrior",
+      "core_tajomaru",
+      "core_masago",
+      "core_samurai",
+      "core_comparison_done"
+    ];
+
+    let endingScene = "cutscene";
+    let endingIndex = 0;
+    let transitioning = false;
+
+    const $ = id => document.getElementById(id);
+    init();
+
+    function init() {
+      localStorage.setItem("ending_seen", "true");
+      $("endingScene").addEventListener("click", advanceEnding);
+      $("mapBtn").addEventListener("click", event => {
+        event.stopPropagation();
+        location.href = "../第一幕：初步審問/竹藪中審訊/index.html";
+      });
+      $("againBtn").addEventListener("click", event => {
+        event.stopPropagation();
+        GAME_KEYS.forEach(key => localStorage.removeItem(key));
+        sessionStorage.clear();
+        location.href = "../第一幕：初步審問/竹藪中審訊/index.html";
+      });
+      renderFrame();
+    }
+
+    function renderFrame() {
+      const frame = ENDING_FRAMES[endingIndex];
+      $("sceneImage").style.setProperty("--scene-image", `url("${frame.image}")`);
+      $("caption").textContent = frame.narration;
+      $("progress").textContent = `${endingIndex + 1} / ${ENDING_FRAMES.length}`;
+      requestAnimationFrame(() => $("caption").classList.add("show"));
+    }
+
+    function advanceEnding() {
+      if (endingScene !== "cutscene" || transitioning) return;
+      if (endingIndex >= ENDING_FRAMES.length - 1) {
+        showSummary();
+        return;
+      }
+
+      transitioning = true;
+      $("caption").classList.remove("show");
+      $("sceneImage").classList.add("fade");
+      setTimeout(() => {
+        endingIndex += 1;
+        renderFrame();
+        $("sceneImage").classList.remove("fade");
+        transitioning = false;
+      }, 560);
+    }
+
+    function showSummary() {
+      endingScene = "summary";
+      $("caption").hidden = true;
+      $("progress").hidden = true;
+      $("summaryScreen").hidden = false;
+    }
+  </script>
+</body>
+</html>

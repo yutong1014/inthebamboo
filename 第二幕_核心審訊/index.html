@@ -1,0 +1,1384 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第二幕｜核心審訊</title>
+  <style>
+    :root {
+      --ink: #f8ecd2;
+      --muted: rgba(248,236,210,.76);
+      --paper: #ead8ae;
+      --paper-ink: #2a1c12;
+      --gold: #d9b464;
+      --green: #72a765;
+      --red: #9a3328;
+      --blue: #9fc3d8;
+      --line: rgba(217,180,100,.34);
+      --shadow: 0 24px 70px rgba(0,0,0,.45);
+      --font: "Noto Serif TC", "PMingLiU", "MingLiU", serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      font-family: var(--font);
+      font-variant-east-asian: traditional;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(217,180,100,.18), transparent 28%),
+        repeating-linear-gradient(104deg, rgba(122,145,91,.07) 0 2px, transparent 2px 30px),
+        linear-gradient(135deg, #070807, #171b13 58%, #070807);
+      overflow-x: hidden;
+    }
+
+    body.modal-open { overflow: hidden; }
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+
+    .top-tools {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 50;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(7,8,7,.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .teacher-tools {
+      position: fixed;
+      left: 14px;
+      bottom: 14px;
+      z-index: 55;
+      display: grid;
+      gap: 8px;
+      width: min(300px, calc(100vw - 28px));
+      padding: 12px;
+      border: 1px solid rgba(217,180,100,.34);
+      border-radius: 10px;
+      background: rgba(7,8,7,.82);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .teacher-tools h2 {
+      margin: 0;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .teacher-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .teacher-btn {
+      min-height: 36px;
+      padding: 8px 9px;
+      border: 1px solid rgba(217,180,100,.42);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(0,0,0,.28);
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .status-pill {
+      min-width: 112px;
+      color: var(--gold);
+      font-weight: 900;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .primary-btn, .ghost-btn, .close-btn, .clear-btn {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid rgba(248,218,145,.72);
+      border-radius: 8px;
+      color: #25170d;
+      background: linear-gradient(180deg, #f4df9f, #c89045);
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      font-weight: 900;
+    }
+
+    .ghost-btn {
+      color: var(--ink);
+      background: rgba(0,0,0,.25);
+      border-color: rgba(217,180,100,.42);
+    }
+
+    .stage {
+      min-height: 100vh;
+      display: grid;
+      align-items: start;
+      padding: clamp(86px, 12vh, 118px) clamp(14px, 4vw, 42px) 38px;
+    }
+
+    .core-stage {
+      background:
+        linear-gradient(rgba(5,7,6,.42), rgba(5,7,6,.84)),
+        url("../圖片/第二幕 核心審問 背景圖.png") center / cover fixed,
+        #070807;
+    }
+
+    .scene {
+      width: min(1160px, 100%);
+      margin: 0 auto;
+    }
+
+    .scene-head {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      width: max-content;
+      margin: 0 auto;
+      padding: 6px 12px;
+      border: 1px solid rgba(217,180,100,.44);
+      border-radius: 999px;
+      color: #f7e4aa;
+      background: rgba(0,0,0,.32);
+      font-weight: 900;
+    }
+
+    .scene-head h1 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(2.1rem, 5vw, 4.7rem);
+      letter-spacing: 0;
+    }
+
+    .scene-head p {
+      width: min(880px, 100%);
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: clamp(1rem, 2vw, 1.18rem);
+    }
+
+    .core-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .core-map-shell {
+      width: min(100%, 1420px);
+      margin: 0 auto 22px;
+      display: grid;
+      place-items: center;
+    }
+
+    .core-map-frame {
+      position: relative;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      filter: drop-shadow(0 28px 70px rgba(0,0,0,.55));
+    }
+
+    .core-map-image {
+      display: block;
+      width: 100%;
+      max-height: min(68vh, 760px);
+      object-fit: contain;
+      border: 1px solid rgba(217,180,100,.25);
+      border-radius: 10px;
+      background: rgba(0,0,0,.22);
+    }
+
+    .core-map-layer {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      aspect-ratio: 1672 / 941;
+      width: min(100%, calc(min(68vh, 760px) * 1672 / 941));
+      max-width: 100%;
+      max-height: min(68vh, 760px);
+    }
+
+    .core-hotspot {
+      position: absolute;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      background: transparent;
+      cursor: pointer;
+      transition: background .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+
+    .core-hotspot:hover,
+    .core-hotspot:focus-visible {
+      outline: none;
+      border-color: rgba(248,218,145,.62);
+      background: rgba(255,232,158,.1);
+      box-shadow: 0 0 30px rgba(248,218,145,.48), inset 0 0 22px rgba(248,218,145,.16);
+    }
+
+    .core-stamp {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(168,230,139,.85);
+      border-radius: 999px;
+      color: #e8ffd4;
+      background: rgba(37,92,42,.76);
+      box-shadow: 0 10px 24px rgba(0,0,0,.36);
+      font-size: 1.35rem;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    .role-card {
+      position: relative;
+      min-height: 350px;
+      display: grid;
+      align-content: end;
+      gap: 12px;
+      padding: 22px;
+      border: 1px solid rgba(217,180,100,.35);
+      border-radius: 10px;
+      color: var(--ink);
+      overflow: hidden;
+      background: #11140f;
+      box-shadow: var(--shadow);
+      text-align: left;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .role-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.64)),
+        var(--portrait) center 18% / auto 94% no-repeat,
+        var(--role-art);
+      opacity: .82;
+      transform: scale(1.03);
+    }
+
+    .role-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.84));
+    }
+
+    .role-card:hover,
+    .role-card:focus-visible {
+      transform: translateY(-6px);
+      border-color: rgba(248,218,145,.82);
+      box-shadow: 0 34px 80px rgba(0,0,0,.58), 0 0 34px rgba(217,180,100,.2);
+      outline: none;
+    }
+
+    .role-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .role-card h2 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(1.6rem, 3vw, 2.35rem);
+    }
+
+    .role-card p {
+      margin: 0;
+      line-height: 1.75;
+      color: rgba(248,236,210,.86);
+    }
+
+    .role-hint {
+      margin-top: 12px;
+      color: rgba(248,236,210,.72);
+      text-align: center;
+      line-height: 1.7;
+      font-size: .96rem;
+    }
+
+    .identity {
+      width: max-content;
+      max-width: 100%;
+      padding: 5px 10px;
+      border: 1px solid rgba(217,180,100,.44);
+      border-radius: 999px;
+      color: #f7e4aa;
+      background: rgba(0,0,0,.34);
+      font-size: .9rem;
+      font-weight: 900;
+    }
+
+    .done-ribbon {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      padding: 7px 11px;
+      border: 1px solid rgba(168,230,139,.7);
+      border-radius: 999px;
+      color: #e8ffd4;
+      background: rgba(37,92,42,.75);
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      font-size: .92rem;
+      font-weight: 900;
+    }
+
+    .comparison-entry {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      margin-top: 26px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(0,0,0,.28);
+      text-align: center;
+    }
+
+    .comparison-entry p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(0,0,0,.7);
+    }
+
+    .modal {
+      width: min(1060px, 100%);
+      max-height: min(88vh, 900px);
+      overflow: auto;
+      padding: clamp(18px, 4vw, 30px);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background:
+        linear-gradient(rgba(11,13,10,.74), rgba(11,13,10,.88)),
+        var(--modal-art),
+        #151610;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 32px 90px rgba(0,0,0,.62);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    .modal h2 {
+      margin: 0 0 6px;
+      color: var(--gold);
+      font-size: clamp(1.7rem, 4vw, 3rem);
+    }
+
+    .modal h3 {
+      margin: 20px 0 10px;
+      color: var(--ink);
+    }
+
+    .modal p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .witness-visual {
+      display: grid;
+      grid-template-columns: minmax(160px, 260px) minmax(0, 1fr);
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+
+    .witness-portrait {
+      min-height: 300px;
+      border: 1px solid rgba(217,180,100,.32);
+      border-radius: 10px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.45)),
+        var(--portrait) center bottom / contain no-repeat,
+        rgba(0,0,0,.28);
+      box-shadow: 0 18px 46px rgba(0,0,0,.32);
+    }
+
+    .witness-summary {
+      padding: 18px;
+      border: 1px solid rgba(217,180,100,.34);
+      border-radius: 10px;
+      background: rgba(10,10,8,.58);
+      box-shadow: 0 18px 46px rgba(0,0,0,.32);
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr);
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .paper-panel, .question-card, .sort-panel, .reveal-panel {
+      border: 1px solid rgba(217,180,100,.34);
+      border-radius: 10px;
+      background: rgba(10,10,8,.58);
+      box-shadow: 0 18px 46px rgba(0,0,0,.32);
+    }
+
+    .paper-panel, .sort-panel, .reveal-panel {
+      padding: 16px;
+    }
+
+    .question-card {
+      margin-top: 14px;
+      padding: 16px;
+    }
+
+    .question-card h4 {
+      margin: 0 0 12px;
+      color: #f4dda4;
+      font-size: 1.08rem;
+      line-height: 1.5;
+    }
+
+    .option-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid rgba(217,180,100,.28);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(0,0,0,.3);
+      line-height: 1.55;
+      text-align: left;
+    }
+
+    .option-btn.correct {
+      border-color: rgba(135,206,109,.86);
+      background: rgba(54,111,58,.5);
+      color: #efffd8;
+    }
+
+    .option-btn.wrong {
+      border-color: rgba(196,82,70,.9);
+      background: rgba(134,43,34,.55);
+      color: #ffe8dc;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      padding: 11px 12px;
+      border-left: 4px solid var(--gold);
+      color: var(--ink);
+      background: rgba(234,216,174,.1);
+      line-height: 1.75;
+    }
+
+    .sort-list {
+      display: grid;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .sort-card, .compare-card {
+      padding: 12px 13px;
+      border: 1px solid rgba(217,180,100,.45);
+      border-radius: 8px;
+      color: var(--paper-ink);
+      background: linear-gradient(180deg, #f3e4be, #d8bf82);
+      box-shadow: 0 12px 26px rgba(0,0,0,.24);
+      line-height: 1.55;
+      font-weight: 900;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .sort-card.dragging {
+      opacity: .45;
+    }
+
+    .sort-ghost, .drag-ghost {
+      position: fixed;
+      z-index: 220;
+      width: min(330px, calc(100vw - 40px));
+      pointer-events: none;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      opacity: .94;
+    }
+
+    .reveal-panel ul {
+      margin: 8px 0 0;
+      padding-left: 1.2em;
+      line-height: 1.75;
+      color: rgba(248,236,210,.86);
+    }
+
+    .identity-box {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid rgba(217,180,100,.4);
+      border-radius: 8px;
+      color: #25170d;
+      background: linear-gradient(180deg, rgba(244,223,159,.95), rgba(211,185,129,.95));
+      line-height: 1.7;
+      font-weight: 900;
+    }
+
+    .comparison-stage {
+      background:
+        linear-gradient(rgba(5,8,7,.42), rgba(5,8,7,.82)),
+        radial-gradient(circle at 50% 20%, rgba(217,180,100,.18), transparent 30%),
+        repeating-linear-gradient(0deg, rgba(248,236,210,.04) 0 1px, transparent 1px 22px),
+        linear-gradient(135deg, #0c0f0d, #201c13 58%, #080908);
+    }
+
+    .compare-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .compare-column {
+      min-height: 430px;
+      padding: 14px;
+      border: 2px dashed rgba(217,180,100,.38);
+      border-radius: 10px;
+      background: rgba(0,0,0,.31);
+      transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .compare-column h2 {
+      margin: 0 0 10px;
+      color: var(--gold);
+      font-size: 1.28rem;
+      text-align: center;
+    }
+
+    .compare-column.over {
+      border-color: rgba(248,218,145,.9);
+      box-shadow: 0 0 28px rgba(217,180,100,.22);
+    }
+
+    .compare-column.correct-drop {
+      border-style: solid;
+      border-color: rgba(132,205,107,.86);
+      background: rgba(58,103,55,.24);
+    }
+
+    .compare-column.wrong,
+    .sort-panel.wrong {
+      animation: wrong .22s ease;
+    }
+
+    .compare-pile {
+      min-height: 80px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .compare-card.locked {
+      cursor: default;
+      background: linear-gradient(180deg, #e8f3d2, #b7d597);
+      border-color: rgba(132,205,107,.9);
+    }
+
+    .card-tray {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 14px;
+      overflow-x: auto;
+      border: 1px solid rgba(217,180,100,.32);
+      border-radius: 10px;
+      background: rgba(0,0,0,.25);
+    }
+
+    .card-tray .compare-card {
+      flex: 0 0 min(260px, 78vw);
+    }
+
+    .summary-box {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(217,180,100,.48);
+      border-radius: 10px;
+      color: var(--paper-ink);
+      background: var(--paper);
+      line-height: 1.85;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-box h2 {
+      margin: 0 0 10px;
+      color: #6e271f;
+    }
+
+    .act-complete {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid rgba(217,180,100,.44);
+      border-radius: 10px;
+      color: var(--paper-ink);
+      background: linear-gradient(180deg, rgba(244,223,159,.96), rgba(211,185,129,.96));
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .act-complete h2 {
+      margin: 0;
+      color: #6e271f;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 120;
+      width: min(680px, calc(100% - 32px));
+      padding: 14px 18px;
+      border: 1px solid rgba(248,218,145,.5);
+      border-radius: 10px;
+      color: var(--ink);
+      background: rgba(23,22,16,.93);
+      box-shadow: var(--shadow);
+      transform: translateX(-50%);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    @keyframes wrong {
+      50% {
+        border-color: var(--red);
+        box-shadow: 0 0 28px rgba(154,51,40,.68);
+        background: rgba(154,51,40,.25);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .core-grid, .compare-board, .panel-grid, .witness-visual {
+        grid-template-columns: 1fr;
+      }
+
+      .role-card {
+        min-height: 260px;
+      }
+
+      .witness-portrait {
+        min-height: 260px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .top-tools, .modal-head {
+        display: grid;
+      }
+
+      .stage {
+        padding-top: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="top-tools" aria-label="核心審訊狀態">
+    <button id="backCoreBtn" class="ghost-btn" type="button" hidden>返回核心審訊室</button>
+    <span id="statusText" class="status-pill">核心證詞 0 / 3</span>
+    <button id="clearBtn" class="clear-btn" type="button">清除第二幕進度</button>
+  </aside>
+
+  <aside id="teacherTools" class="teacher-tools" hidden>
+    <h2>教師測試面板</h2>
+    <div class="teacher-actions">
+      <button class="teacher-btn" type="button" data-teacher="complete">補齊第二幕</button>
+      <button class="teacher-btn" type="button" data-teacher="third">跳第三幕</button>
+    </div>
+  </aside>
+
+  <main>
+    <section id="coreStage" class="stage core-stage">
+      <section class="scene">
+        <div class="scene-head">
+          <div class="eyebrow">〈竹藪中〉第二幕</div>
+          <h1>核心審訊</h1>
+          <p>三位當事人都將說出自己的版本。但他們說出的，是事實，還是為自己留下的辯詞？</p>
+        </div>
+        <section class="core-map-shell" aria-label="核心審訊人物圖">
+          <div class="core-map-frame">
+            <img class="core-map-image" src="../圖片/第二幕 核心審問 背景圖.png" alt="第二幕核心審問背景圖">
+            <div class="core-map-layer">
+              <button class="core-hotspot" type="button" data-core="tajomaru" aria-label="審訊多襄丸" style="left:7.2%;top:33%;width:9.8%;height:21%;"></button>
+              <button class="core-hotspot" type="button" data-core="masago" aria-label="審訊真砂" style="left:62.5%;top:46%;width:8.4%;height:21%;"></button>
+              <button class="core-hotspot" type="button" data-core="samurai" aria-label="審訊武士亡魂" style="left:91.2%;top:30.5%;width:7.3%;height:28%;"></button>
+              <div id="coreStampLayer"></div>
+            </div>
+          </div>
+        </section>
+        <p class="role-hint">點擊背景中的名牌，或下方人物卡，進入該角色的核心證詞審訊。</p>
+        <div id="coreCards" class="core-grid">
+          <button class="role-card" type="button" data-core="tajomaru" style="--role-art:linear-gradient(150deg, rgba(6,15,11,.16), rgba(4,5,4,.9)), radial-gradient(circle at 72% 24%, rgba(217,180,100,.18), transparent 22%), repeating-linear-gradient(108deg, rgba(87,112,72,.18) 0 3px, transparent 3px 34px), linear-gradient(135deg, #10170f, #070807);">
+            <span class="identity">強盜、嫌疑人</span>
+            <h2>多襄丸</h2>
+            <p>他承認殺死武士，卻堅持那是一場堂堂正正的決鬥。</p>
+          </button>
+          <button class="role-card" type="button" data-core="masago" style="--role-art:linear-gradient(150deg, rgba(44,31,25,.1), rgba(8,7,6,.86)), radial-gradient(circle at 50% 18%, rgba(231,186,130,.18), transparent 24%), repeating-linear-gradient(110deg, rgba(188,138,112,.12) 0 2px, transparent 2px 30px), linear-gradient(135deg, #241c16, #3a2c21 50%, #0b0907);">
+            <span class="identity">武士之妻</span>
+            <h2>真砂</h2>
+            <p>她說自己因丈夫冷冽的眼神而崩潰，親手殺死丈夫。</p>
+          </button>
+          <button class="role-card" type="button" data-core="samurai" style="--role-art:linear-gradient(150deg, rgba(7,15,18,.12), rgba(4,5,7,.9)), radial-gradient(circle at 48% 18%, rgba(159,195,216,.18), transparent 25%), repeating-linear-gradient(105deg, rgba(123,155,168,.13) 0 2px, transparent 2px 32px), linear-gradient(135deg, #0b1215, #1c2223 55%, #050607);">
+            <span class="identity">死者金澤武弘</span>
+            <h2>武士亡魂</h2>
+            <p>他藉靈媒之口作證，說自己因妻子的背叛而自殺。</p>
+          </button>
+        </div>
+        <div id="comparisonEntry" class="act-complete" hidden>
+          <h2>第二幕核心證詞完成</h2>
+          <p>你已記錄多襄丸、真砂與武士亡魂三種互相衝突的版本。下一幕可以進入證詞對照，檢查同一事件如何被三個人說成三種真相。</p>
+          <button id="openComparisonBtn" class="primary-btn" type="button">前往第三幕：證詞對照</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="comparisonStage" class="stage comparison-stage" hidden>
+      <section class="scene">
+        <div class="scene-head">
+          <div class="eyebrow">證詞比對</div>
+          <h1>相同的事件，不同的真相</h1>
+          <p>請把關鍵線索拖到正確欄位。你會發現：證詞越完整，真相反而越分裂。</p>
+        </div>
+        <div id="compareBoard" class="compare-board"></div>
+        <div id="compareTray" class="card-tray" aria-label="待分類線索卡"></div>
+        <div id="comparisonSummary" class="summary-box" hidden>
+          <h2>主題總結</h2>
+          <p>三份證詞有共同的核心：武士死亡、真砂受辱、多襄丸涉入事件。但在最關鍵的地方——誰殺了武士、用什麼凶器、誰替武士鬆綁、誰先逃走、真砂究竟是受害者還是背叛者——三人說法彼此衝突。</p>
+          <p>這些衝突提醒我們：證詞不是透明的事實，而是每個人站在自己的羞恥、自尊、慾望與恐懼中說出的版本。</p>
+          <button id="truthReportBtn" class="primary-btn" type="button">進入真相報告</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <section id="roleModal" class="modal-backdrop" hidden>
+    <article id="roleModalPanel" class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 id="roleTitle">角色名稱</h2>
+          <p id="roleIdentity">身分</p>
+        </div>
+        <button id="closeRoleBtn" class="close-btn" type="button">關閉</button>
+      </div>
+      <div id="roleContent"></div>
+    </article>
+  </section>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script>
+    /*
+      背景圖提示詞留在程式註解中，之後若要補 AI 圖可直接使用：
+      核心審訊主畫面背景提示詞：橫式 16:9，日式水墨風古代審訊室，中央有三張人物證詞卡的位置，背後是迷霧竹林與案卷牆，桌上有卷宗、毛筆、燭火，氣氛懸疑安靜，文學推理 RPG 風格，墨黑、深綠、米白色調，無文字。
+      多襄丸審訊背景提示詞：橫式 16:9，日式水墨風竹林深處，一名強盜坐在審訊陰影中，旁邊有大刀、繩子、散落竹葉，姿態張狂但神情難辨，懸疑推理氛圍，墨黑與深綠色調，無血腥，無文字。
+      真砂懺悔背景提示詞：橫式 16:9，日式水墨風清水寺懺悔場景，一名年輕女子跪坐在燭光前，背景隱約有竹林影子與丈夫模糊視線的象徵，氣氛悲傷壓抑，米白、灰褐、淡紅色調，文學感，無文字。
+      武士亡魂背景提示詞：橫式 16:9，日式水墨風靈媒審訊場景，昏暗竹林霧氣中浮現武士亡魂的輪廓，畫面有靈媒、燭火、匕首的象徵物，氣氛幽微懸疑但不恐怖，青灰、墨黑、淡藍色調，無文字。
+      證詞比對白板背景提示詞：橫式 16:9，日式古代案卷桌面與三欄證詞白板，三份卷宗分別標示多襄丸、真砂、武士亡魂的位置，周圍散落線索卡、繩子、梳子、匕首、大刀、弓箭，水墨推理風，清楚留白適合放互動卡片，無文字。
+    */
+
+    const CORE_WITNESSES = [
+      {
+        id: "tajomaru",
+        key: "core_tajomaru",
+        name: "多襄丸",
+        identity: "強盜、嫌疑人",
+        cardText: "他承認殺死武士，卻堅持那是一場堂堂正正的決鬥。",
+        portrait: "../圖片/多襄丸.png",
+        art: "linear-gradient(150deg, rgba(6,15,11,.16), rgba(4,5,4,.9)), radial-gradient(circle at 72% 24%, rgba(217,180,100,.18), transparent 22%), repeating-linear-gradient(108deg, rgba(87,112,72,.18) 0 3px, transparent 3px 34px), linear-gradient(135deg, #10170f, #070807)",
+        modalArt: "radial-gradient(circle at 76% 20%, rgba(217,180,100,.18), transparent 24%), repeating-linear-gradient(105deg, rgba(72,102,65,.2) 0 3px, transparent 3px 36px), linear-gradient(135deg, #09110c, #1b1a12 55%, #070807)",
+        summary: "多襄丸承認自己被真砂吸引，設計將武士引入竹林，綑綁武士後凌辱真砂。他說真砂要求兩個男人只能活一個，因此他替武士鬆綁，與武士正面決鬥，最後在第二十三回合用大刀殺死武士。多襄丸的說法把自己塑造成豪勇、坦率、不卑劣的強盜。",
+        maskHint: "先保留判斷：這份證詞想替說話者留下哪一種形象？",
+        quiz: [
+          {
+            id: "T1",
+            question: "多襄丸為何特別強調自己與武士「決鬥」？",
+            options: ["為了證明自己完全無罪", "為了把自己塑造成豪勇、光明磊落的人", "為了說明真砂沒有出現", "為了證明武士沒有死亡"],
+            answer: 1,
+            feedback: "多襄丸不是否認犯罪，而是把犯罪包裝成「堂堂正正的決鬥」。這是他維護自我形象的方式。"
+          },
+          {
+            id: "T2",
+            question: "多襄丸版本中最可疑的地方是什麼？",
+            options: ["他從未見過真砂", "他完全沒有承認自己犯案", "他把自己說得太像豪俠，可能美化了自己的暴力", "他說武士根本沒有死"],
+            answer: 2,
+            feedback: "他的供詞看似坦率，卻處處強化自己的武勇與男子氣概，這使讀者必須懷疑他是否在自我美化。"
+          }
+        ],
+        sequence: [
+          "看見真砂而起意",
+          "以寶物為誘餌，引武士入竹林",
+          "偷襲並綑綁武士",
+          "凌辱真砂",
+          "真砂要求兩個男人只能活一個",
+          "多襄丸替武士鬆綁",
+          "與武士決鬥",
+          "用大刀殺死武士"
+        ],
+        sequenceDone: "在多襄丸的版本裡，殺人被安排成一場具有英雄色彩的決鬥。這個順序本身，就是他替自己辯護的方式。",
+        clues: ["多襄丸承認接近武士夫妻是出於慾望", "他承認綑綁武士、凌辱真砂", "他說自己替武士鬆綁，進行決鬥", "他說凶器是大刀"],
+        doubts: ["決鬥是否真的發生？", "真砂是否真的要求兩個男人只能活一個？", "多襄丸是否把暴力行為美化成豪勇行為？"],
+        selfImage: "武藝高強、堂堂正正、不是卑劣偷襲者的強盜。"
+      },
+      {
+        id: "masago",
+        key: "core_masago",
+        name: "真砂",
+        identity: "武士之妻",
+        cardText: "她說自己因丈夫冷冽的眼神而崩潰，親手殺死丈夫。",
+        portrait: "../圖片/真砂.png",
+        art: "linear-gradient(150deg, rgba(44,31,25,.1), rgba(8,7,6,.86)), radial-gradient(circle at 50% 18%, rgba(231,186,130,.18), transparent 24%), repeating-linear-gradient(110deg, rgba(188,138,112,.12) 0 2px, transparent 2px 30px), linear-gradient(135deg, #241c16, #3a2c21 50%, #0b0907)",
+        modalArt: "radial-gradient(circle at 36% 26%, rgba(247,213,158,.2), transparent 26%), radial-gradient(circle at 72% 70%, rgba(150,52,54,.16), transparent 30%), linear-gradient(135deg, #2a211b, #5b4939 55%, #090807)",
+        summary: "真砂說自己受辱後，看見丈夫眼中不是憤怒或悲哀，而是冷冷的輕蔑。她因羞恥、悲哀與憤怒而崩潰，認為自己再也不能與丈夫一起活下去，於是用匕首刺死丈夫，並試圖自殺，卻沒有成功。她的版本強調受辱後的羞恥與丈夫凝視帶來的傷害。",
+        maskHint: "先保留判斷：她的敘述把痛苦、羞恥與尊嚴放在什麼位置？",
+        quiz: [
+          {
+            id: "M1",
+            question: "真砂證詞中，丈夫的「眼神」對她造成什麼影響？",
+            options: ["讓她感到被理解與安慰", "讓她完全忘記多襄丸", "讓她感到被輕蔑、被否定，進而崩潰", "讓她立刻逃出竹林求救"],
+            answer: 2,
+            feedback: "真砂的心理轉折不只來自受辱，更來自她感受到丈夫眼中的輕蔑。這也是她證詞中最關鍵的情緒線索。"
+          },
+          {
+            id: "M2",
+            question: "真砂版本最想維護的形象可能是什麼？",
+            options: ["受辱後仍想保全尊嚴與貞潔的人", "武藝高強的決鬥者", "完全冷靜的旁觀者", "審判案件的法官"],
+            answer: 0,
+            feedback: "真砂的證詞把重點放在羞恥、尊嚴與自殺未遂上，顯示她想證明自己並非輕浮背叛者，而是被羞辱後仍想保全尊嚴的人。"
+          }
+        ],
+        sequence: [
+          "多襄丸凌辱真砂",
+          "多襄丸離開",
+          "真砂看見丈夫冷冷輕蔑的眼神",
+          "真砂認為夫妻再也不能一起活下去",
+          "真砂用匕首刺進丈夫胸膛",
+          "真砂解開丈夫繩子",
+          "真砂試圖自殺卻沒有成功"
+        ],
+        sequenceDone: "在真砂的版本裡，事件的核心不是決鬥，而是羞恥與凝視。丈夫的眼神成為壓垮她的關鍵。",
+        clues: ["真砂說凶器是匕首", "她說多襄丸先離開", "她說自己殺死丈夫", "她說自己後來試圖自殺但失敗"],
+        doubts: ["多襄丸真的先逃走了嗎？", "真砂是否避談自己與多襄丸之間的情感變化？", "她對丈夫眼神的解讀，是事實還是情緒中的主觀詮釋？"],
+        selfImage: "受辱後仍想保全尊嚴、貞潔與自我價值的人。"
+      },
+      {
+        id: "samurai",
+        key: "core_samurai",
+        name: "武士亡魂",
+        identity: "死者金澤武弘",
+        cardText: "他藉靈媒之口作證，說自己因妻子的背叛而自殺。",
+        portrait: "../圖片/武士亡魂.png",
+        art: "linear-gradient(150deg, rgba(7,15,18,.12), rgba(4,5,7,.9)), radial-gradient(circle at 48% 18%, rgba(159,195,216,.18), transparent 25%), repeating-linear-gradient(105deg, rgba(123,155,168,.13) 0 2px, transparent 2px 32px), linear-gradient(135deg, #0b1215, #1c2223 55%, #050607)",
+        modalArt: "radial-gradient(circle at 52% 24%, rgba(159,195,216,.2), transparent 27%), repeating-linear-gradient(92deg, rgba(148,173,182,.14) 0 2px, transparent 2px 34px), linear-gradient(135deg, #0b1115, #1f2425 55%, #050607)",
+        summary: "武士亡魂說，多襄丸以花言巧語誘惑真砂，真砂願意跟隨多襄丸，甚至要求多襄丸殺死自己。多襄丸反而踢倒真砂，問武士要不要處置她。之後真砂逃走，多襄丸也離開。武士在孤獨與屈辱中，用真砂留下的匕首刺入自己胸膛。他的版本強調妻子的背叛與自己的尊嚴。",
+        maskHint: "先保留判斷：即使是死者作證，他是否也可能有自尊與立場？",
+        quiz: [
+          {
+            id: "S1",
+            question: "在武士亡魂的版本中，武士如何死亡？",
+            options: ["被多襄丸用大刀殺死", "被真砂用匕首殺死", "被捕吏誤殺", "自己用匕首自殺"],
+            answer: 3,
+            feedback: "武士亡魂說自己自殺。這個版本讓他保留主體性與武士尊嚴，而不是成為被殺或戰敗的人。"
+          },
+          {
+            id: "S2",
+            question: "武士亡魂的證詞是否一定比活人的證詞更可信？",
+            options: ["是，亡魂沒有立場", "是，因為死者一定知道真相", "否，亡魂也可能維護自己的尊嚴與名譽", "否，因為亡魂沒有參與事件"],
+            answer: 2,
+            feedback: "《竹藪中》的特殊之處在於，即使亡魂出來作證，也不保證它就是客觀真相。死者也可能有自尊與立場。"
+          }
+        ],
+        sequence: [
+          "多襄丸用花言巧語誘惑真砂",
+          "真砂表示願意跟隨多襄丸",
+          "真砂要求多襄丸殺死武士",
+          "多襄丸踢倒真砂，詢問武士如何處置她",
+          "真砂逃入竹林",
+          "多襄丸離開並割斷武士繩子",
+          "武士拿起真砂留下的匕首",
+          "武士自殺"
+        ],
+        sequenceDone: "在武士亡魂的版本裡，真正刺傷他的不只是匕首，而是妻子的背叛。自殺成為他維護尊嚴的敘述方式。",
+        clues: ["武士說真砂願意跟隨多襄丸", "武士說真砂要求多襄丸殺死自己", "武士說多襄丸後來割斷繩子", "武士說凶器是匕首，死因是自殺"],
+        doubts: ["武士是否因自尊而拒絕承認自己被殺？", "他對真砂的描述是否受到嫉妒與屈辱影響？", "自殺是否是一種保全面子的說法？"],
+        selfImage: "保有尊嚴、不是被殺敗者，而是選擇以死維護名譽的武士。"
+      }
+    ];
+
+    const COMPARISON_COLUMNS = [
+      { id: "tajomaru", title: "多襄丸版本" },
+      { id: "masago", title: "真砂版本" },
+      { id: "samurai", title: "武士亡魂版本" }
+    ];
+
+    const COMPARISON_CARDS = [
+      ["c1", "武士死因：決鬥後被大刀殺死", "tajomaru"],
+      ["c2", "凶器：大刀", "tajomaru"],
+      ["c3", "誰鬆綁：多襄丸為了決鬥替武士鬆綁", "tajomaru"],
+      ["c4", "誰先逃走：真砂在決鬥時逃走", "tajomaru"],
+      ["c5", "真砂形象：激起慾望、要求兩男決鬥的女人", "tajomaru"],
+      ["c6", "武士死因：被真砂以匕首刺死", "masago"],
+      ["c7", "凶器：匕首", "masago"],
+      ["c8", "誰鬆綁：真砂殺夫後替武士解開繩子", "masago"],
+      ["c9", "誰先逃走：多襄丸先逃走", "masago"],
+      ["c10", "真砂形象：受辱後因丈夫眼神而崩潰的女人", "masago"],
+      ["c11", "武士死因：自己以匕首自殺", "samurai"],
+      ["c12", "凶器：匕首", "samurai"],
+      ["c13", "誰鬆綁：多襄丸離開前割斷繩子", "samurai"],
+      ["c14", "誰先逃走：真砂先逃走，多襄丸後離開", "samurai"],
+      ["c15", "真砂形象：被強盜誘惑、甚至要求殺夫的女人", "samurai"]
+    ].map(([id, text, answer]) => ({ id, text, answer }));
+
+    const CORE_KEYS = ["core_tajomaru", "core_masago", "core_samurai", "core_comparison_done"];
+    const $ = id => document.getElementById(id);
+    let activeWitness = null;
+    let roleState = null;
+    let sortDrag = null;
+    let classifyDrag = null;
+    const comparePlaced = new Set();
+
+    init();
+
+    function init() {
+      $("clearBtn").addEventListener("click", clearCoreProgress);
+      $("backCoreBtn").addEventListener("click", showCoreRoom);
+      $("closeRoleBtn").addEventListener("click", closeRoleModal);
+      $("openComparisonBtn").addEventListener("click", () => {
+        location.href = "../第三幕_證詞比對白板/index.html";
+      });
+      $("truthReportBtn").addEventListener("click", () => alert("第三幕尚未製作：接下來將進入真相報告。"));
+      bindTeacherTools();
+      showCoreRoom();
+    }
+
+    function bindTeacherTools() {
+      const params = new URLSearchParams(location.search);
+      if (params.get("teacher") !== "1") return;
+      $("teacherTools").hidden = false;
+      document.querySelectorAll("[data-teacher]").forEach(button => {
+        button.addEventListener("click", () => {
+          if (button.dataset.teacher === "complete") {
+            ["core_tajomaru", "core_masago", "core_samurai"].forEach(key => localStorage.setItem(key, "true"));
+            showToast("已補齊第二幕三位核心證詞。");
+            showCoreRoom();
+          }
+          if (button.dataset.teacher === "third") {
+            location.href = "../第三幕_證詞比對白板/index.html?teacher=1";
+          }
+        });
+      });
+    }
+
+    function getCoreCount() {
+      return CORE_WITNESSES.filter(w => localStorage.getItem(w.key)).length;
+    }
+
+    function updateStatus() {
+      $("statusText").textContent = `核心證詞 ${getCoreCount()} / ${CORE_WITNESSES.length}`;
+    }
+
+    function showCoreRoom() {
+      $("coreStage").hidden = false;
+      $("comparisonStage").hidden = true;
+      $("backCoreBtn").hidden = true;
+      renderCoreCards();
+      bindCoreHotspots();
+      updateStatus();
+    }
+
+    function showComparison() {
+      $("coreStage").hidden = true;
+      $("comparisonStage").hidden = false;
+      $("backCoreBtn").hidden = false;
+      renderComparison();
+      updateStatus();
+    }
+
+    function renderCoreCards() {
+      $("coreCards").innerHTML = CORE_WITNESSES.map(witness => {
+        const done = localStorage.getItem(witness.key);
+        return `
+          <button class="role-card" type="button" data-core="${witness.id}" style="--role-art:${witness.art};--portrait:url('${witness.portrait}');">
+            ${done ? '<span class="done-ribbon">證詞已記錄 ✓</span>' : ''}
+            <span class="identity">${witness.identity}</span>
+            <h2>${witness.name}</h2>
+            <p>${witness.cardText}</p>
+          </button>
+        `;
+      }).join("");
+      document.querySelectorAll(".role-card").forEach(card => {
+        card.addEventListener("click", () => openRole(card.dataset.core));
+      });
+      renderCoreStamps();
+      $("comparisonEntry").hidden = getCoreCount() !== CORE_WITNESSES.length;
+    }
+
+    function bindCoreHotspots() {
+      document.querySelectorAll(".core-hotspot").forEach(button => {
+        button.onclick = () => openRole(button.dataset.core);
+      });
+    }
+
+    function renderCoreStamps() {
+      const stampPositions = {
+        tajomaru: { left: "14.2%", top: "31%" },
+        masago: { left: "68.2%", top: "44%" },
+        samurai: { left: "95.2%", top: "28.5%" }
+      };
+      $("coreStampLayer").innerHTML = CORE_WITNESSES
+        .filter(witness => localStorage.getItem(witness.key))
+        .map(witness => `<div class="core-stamp" style="left:${stampPositions[witness.id].left};top:${stampPositions[witness.id].top};">✓</div>`)
+        .join("");
+    }
+
+    function openRole(id) {
+      activeWitness = CORE_WITNESSES.find(item => item.id === id);
+      if (!activeWitness) return;
+      roleState = { answered: new Set(), sequenceDone: false };
+      $("roleTitle").textContent = activeWitness.name;
+      $("roleIdentity").textContent = activeWitness.identity;
+      $("roleModalPanel").style.setProperty("--modal-art", activeWitness.modalArt);
+      $("roleContent").innerHTML = buildRoleContent(activeWitness);
+      $("roleModal").hidden = false;
+      document.body.classList.add("modal-open");
+      bindRoleQuiz();
+      bindSortCards();
+      updateRoleCompleteButton();
+    }
+
+    function closeRoleModal() {
+      $("roleModal").hidden = true;
+      document.body.classList.remove("modal-open");
+      activeWitness = null;
+      roleState = null;
+    }
+
+    function buildRoleContent(witness) {
+      const cards = shuffle(witness.sequence.map((text, index) => ({ id: String(index), text })));
+      return `
+        <div class="witness-visual">
+          <div class="witness-portrait" style="--portrait:url('${witness.portrait}');" aria-label="${witness.name}人物圖"></div>
+          <section class="witness-summary">
+            <h3>證詞摘要</h3>
+            <p>${witness.summary}</p>
+            <div class="identity-box">${witness.maskHint}</div>
+          </section>
+        </div>
+        <div class="panel-grid">
+          <section class="paper-panel">
+            <h3>盤問題</h3>
+            ${witness.quiz.map((q, qi) => `
+              <article class="question-card" data-question="${qi}">
+                <h4>${q.id}｜${q.question}</h4>
+                <div class="option-grid">
+                  ${q.options.map((option, oi) => `<button class="option-btn" type="button" data-question="${qi}" data-option="${oi}">${String.fromCharCode(65 + oi)}. ${option}</button>`).join("")}
+                </div>
+                <div class="feedback" data-feedback="${qi}" hidden></div>
+              </article>
+            `).join("")}
+          </section>
+          <aside>
+            <section id="sortPanel" class="sort-panel">
+              <h3>拖曳排序</h3>
+              <p>請將事件卡排成這份證詞中的發生順序，再按下確認。</p>
+              <div id="sortList" class="sort-list">
+                ${cards.map(card => `<div class="sort-card" data-order="${card.id}">${card.text}</div>`).join("")}
+              </div>
+              <button id="checkSortBtn" class="primary-btn" type="button">確認順序</button>
+              <div id="sortFeedback" class="feedback" hidden></div>
+            </section>
+            <section id="roleReveal" class="reveal-panel" hidden>
+              <h3>取得線索</h3>
+              <ul>${witness.clues.map(item => `<li>${item}</li>`).join("")}</ul>
+              <h3>證詞疑點</h3>
+              <ul>${witness.doubts.map(item => `<li>${item}</li>`).join("")}</ul>
+              <h3>此人可能想維護的形象</h3>
+              <div class="identity-box">${witness.selfImage}</div>
+              <button id="finishRoleBtn" class="primary-btn" type="button">完成核心證詞</button>
+            </section>
+          </aside>
+        </div>
+      `;
+    }
+
+    function bindRoleQuiz() {
+      document.querySelectorAll(".option-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          const questionIndex = Number(button.dataset.question);
+          const optionIndex = Number(button.dataset.option);
+          const question = activeWitness.quiz[questionIndex];
+          const card = button.closest(".question-card");
+          if (roleState.answered.has(questionIndex)) return;
+          roleState.answered.add(questionIndex);
+          card.querySelectorAll(".option-btn").forEach(opt => {
+            const idx = Number(opt.dataset.option);
+            opt.disabled = true;
+            if (idx === question.answer) opt.classList.add("correct");
+          });
+          if (optionIndex !== question.answer) button.classList.add("wrong");
+          const feedback = card.querySelector(".feedback");
+          feedback.textContent = question.feedback;
+          feedback.hidden = false;
+          updateRoleCompleteButton();
+        });
+      });
+    }
+
+    function bindSortCards() {
+      document.querySelectorAll(".sort-card").forEach(card => {
+        card.addEventListener("pointerdown", startSortDrag);
+      });
+      $("checkSortBtn").addEventListener("click", checkSequence);
+    }
+
+    function startSortDrag(event) {
+      if (event.button !== undefined && event.button !== 0) return;
+      const card = event.currentTarget;
+      event.preventDefault();
+      const ghost = card.cloneNode(true);
+      ghost.classList.add("sort-ghost");
+      ghost.style.left = `${event.clientX}px`;
+      ghost.style.top = `${event.clientY}px`;
+      document.body.appendChild(ghost);
+      card.classList.add("dragging");
+      sortDrag = { card, ghost };
+      document.addEventListener("pointermove", moveSortDrag);
+      document.addEventListener("pointerup", endSortDrag);
+      document.addEventListener("pointercancel", endSortDrag);
+    }
+
+    function moveSortDrag(event) {
+      if (!sortDrag) return;
+      sortDrag.ghost.style.left = `${event.clientX}px`;
+      sortDrag.ghost.style.top = `${event.clientY}px`;
+      const list = $("sortList");
+      const after = getSortInsertTarget(list, event.clientY);
+      if (after == null) list.appendChild(sortDrag.card);
+      else list.insertBefore(sortDrag.card, after);
+    }
+
+    function endSortDrag() {
+      if (!sortDrag) return;
+      sortDrag.card.classList.remove("dragging");
+      sortDrag.ghost.remove();
+      document.removeEventListener("pointermove", moveSortDrag);
+      document.removeEventListener("pointerup", endSortDrag);
+      document.removeEventListener("pointercancel", endSortDrag);
+      sortDrag = null;
+    }
+
+    function getSortInsertTarget(container, y) {
+      const items = [...container.querySelectorAll(".sort-card:not(.dragging)")];
+      return items.find(item => y < item.getBoundingClientRect().top + item.offsetHeight / 2);
+    }
+
+    function checkSequence() {
+      const actual = [...document.querySelectorAll("#sortList .sort-card")].map(card => Number(card.dataset.order));
+      const correct = actual.every((value, index) => value === index);
+      const panel = $("sortPanel");
+      const feedback = $("sortFeedback");
+      feedback.hidden = false;
+      if (!correct) {
+        panel.classList.remove("wrong");
+        void panel.offsetWidth;
+        panel.classList.add("wrong");
+        feedback.textContent = "順序還不完整，請回到證詞中尋找因果線索。";
+        return;
+      }
+      roleState.sequenceDone = true;
+      feedback.textContent = `${activeWitness.sequenceDone} 這是此人版本中的事件順序，但不代表它就是唯一真相。`;
+      $("roleReveal").hidden = false;
+      updateRoleCompleteButton();
+    }
+
+    function updateRoleCompleteButton() {
+      const button = $("finishRoleBtn");
+      if (!button || !roleState) return;
+      const ready = roleState.answered.size === activeWitness.quiz.length && roleState.sequenceDone;
+      button.disabled = !ready;
+      button.style.opacity = ready ? "1" : ".55";
+      button.onclick = () => {
+        if (!ready) return;
+        localStorage.setItem(activeWitness.key, "true");
+        showToast(`${activeWitness.name}核心證詞已記錄。`);
+        closeRoleModal();
+        showCoreRoom();
+      };
+    }
+
+    function renderComparison() {
+      comparePlaced.clear();
+      $("comparisonSummary").hidden = !localStorage.getItem("core_comparison_done");
+      $("compareBoard").innerHTML = COMPARISON_COLUMNS.map(column => `
+        <section class="compare-column" data-column="${column.id}">
+          <h2>${column.title}</h2>
+          <div class="compare-pile"></div>
+        </section>
+      `).join("");
+      $("compareTray").innerHTML = shuffle(COMPARISON_CARDS).map(card => `
+        <div class="compare-card" draggable="true" data-card="${card.id}" data-answer="${card.answer}">${card.text}</div>
+      `).join("");
+      bindComparisonDrag();
+    }
+
+    function bindComparisonDrag() {
+      document.querySelectorAll(".compare-card:not(.locked)").forEach(card => {
+        card.addEventListener("dragstart", event => {
+          event.dataTransfer.setData("text/plain", card.dataset.card);
+        });
+        card.addEventListener("pointerdown", startClassifyDrag);
+      });
+      document.querySelectorAll(".compare-column").forEach(column => {
+        column.addEventListener("dragover", event => {
+          event.preventDefault();
+          column.classList.add("over");
+        });
+        column.addEventListener("dragleave", () => column.classList.remove("over"));
+        column.addEventListener("drop", event => {
+          event.preventDefault();
+          column.classList.remove("over");
+          const id = event.dataTransfer.getData("text/plain");
+          const card = document.querySelector(`.compare-card[data-card="${id}"]`);
+          if (card) handleCompareDrop(column, card);
+        });
+      });
+    }
+
+    function startClassifyDrag(event) {
+      if (event.button !== undefined && event.button !== 0) return;
+      const card = event.currentTarget;
+      if (card.classList.contains("locked")) return;
+      event.preventDefault();
+      const ghost = card.cloneNode(true);
+      ghost.classList.add("drag-ghost");
+      ghost.style.left = `${event.clientX}px`;
+      ghost.style.top = `${event.clientY}px`;
+      document.body.appendChild(ghost);
+      classifyDrag = { card, ghost };
+      document.addEventListener("pointermove", moveClassifyDrag);
+      document.addEventListener("pointerup", endClassifyDrag);
+      document.addEventListener("pointercancel", cancelClassifyDrag);
+    }
+
+    function moveClassifyDrag(event) {
+      if (!classifyDrag) return;
+      classifyDrag.ghost.style.left = `${event.clientX}px`;
+      classifyDrag.ghost.style.top = `${event.clientY}px`;
+      document.querySelectorAll(".compare-column.over").forEach(column => column.classList.remove("over"));
+      const column = compareColumnAt(event.clientX, event.clientY);
+      if (column) column.classList.add("over");
+    }
+
+    function endClassifyDrag(event) {
+      if (!classifyDrag) return;
+      const column = compareColumnAt(event.clientX, event.clientY);
+      const card = classifyDrag.card;
+      cancelClassifyDrag();
+      if (column) handleCompareDrop(column, card);
+    }
+
+    function cancelClassifyDrag() {
+      if (!classifyDrag) return;
+      classifyDrag.ghost.remove();
+      document.querySelectorAll(".compare-column.over").forEach(column => column.classList.remove("over"));
+      document.removeEventListener("pointermove", moveClassifyDrag);
+      document.removeEventListener("pointerup", endClassifyDrag);
+      document.removeEventListener("pointercancel", cancelClassifyDrag);
+      classifyDrag = null;
+    }
+
+    function compareColumnAt(x, y) {
+      if (classifyDrag?.ghost) classifyDrag.ghost.style.display = "none";
+      const column = document.elementFromPoint(x, y)?.closest?.(".compare-column");
+      if (classifyDrag?.ghost) classifyDrag.ghost.style.display = "";
+      return column;
+    }
+
+    function handleCompareDrop(column, card) {
+      if (card.classList.contains("locked")) return;
+      if (card.dataset.answer !== column.dataset.column) {
+        column.classList.remove("wrong");
+        void column.offsetWidth;
+        column.classList.add("wrong");
+        showToast("這張線索卡不屬於這份證詞，請回到三人的敘述差異再判斷。");
+        return;
+      }
+      card.classList.add("locked");
+      card.draggable = false;
+      column.querySelector(".compare-pile").appendChild(card);
+      column.classList.add("correct-drop");
+      comparePlaced.add(card.dataset.card);
+      if (comparePlaced.size === COMPARISON_CARDS.length) {
+        localStorage.setItem("core_comparison_done", "true");
+        $("comparisonSummary").hidden = false;
+        showToast("證詞比對完成：你已看見三份證詞在關鍵處如何分裂。");
+      }
+    }
+
+    function clearCoreProgress() {
+      CORE_KEYS.forEach(key => localStorage.removeItem(key));
+      comparePlaced.clear();
+      showCoreRoom();
+      showToast("第二幕進度已清除，可以重新審訊三位核心證人。");
+    }
+
+    function showToast(message) {
+      $("toast").textContent = message;
+      $("toast").hidden = false;
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => $("toast").hidden = true, 2800);
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+  </script>
+</body>
+</html>

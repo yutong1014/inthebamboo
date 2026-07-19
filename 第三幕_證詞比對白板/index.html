@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第三幕｜證詞比對白板</title>
+  <style>
+    :root {
+      --ink: #f8ecd2;
+      --muted: rgba(248,236,210,.76);
+      --paper: #ead8ae;
+      --paper-ink: #2a1c12;
+      --gold: #d9b464;
+      --green: #72a765;
+      --red: #9a3328;
+      --line: rgba(217,180,100,.34);
+      --shadow: 0 24px 70px rgba(0,0,0,.45);
+      --font: "Noto Serif TC", "PMingLiU", "MingLiU", serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      font-family: var(--font);
+      font-variant-east-asian: traditional;
+      background:
+        linear-gradient(rgba(5,7,6,.5), rgba(5,7,6,.88)),
+        url("../圖片/第二幕 核心審問 背景圖.png") center / cover fixed,
+        #070807;
+      overflow-x: hidden;
+    }
+
+    button { font: inherit; cursor: pointer; }
+
+    .top-tools {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 50;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(7,8,7,.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .teacher-tools {
+      position: fixed;
+      left: 14px;
+      bottom: 14px;
+      z-index: 55;
+      display: grid;
+      gap: 8px;
+      width: min(300px, calc(100vw - 28px));
+      padding: 12px;
+      border: 1px solid rgba(217,180,100,.34);
+      border-radius: 10px;
+      background: rgba(7,8,7,.82);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .teacher-tools h2 {
+      margin: 0;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    .teacher-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .teacher-btn {
+      min-height: 36px;
+      padding: 8px 9px;
+      border: 1px solid rgba(217,180,100,.42);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(0,0,0,.28);
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .status-pill {
+      color: var(--gold);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .primary-btn, .ghost-btn, .clear-btn {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid rgba(248,218,145,.72);
+      border-radius: 8px;
+      color: #25170d;
+      background: linear-gradient(180deg, #f4df9f, #c89045);
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      font-weight: 900;
+    }
+
+    .ghost-btn {
+      color: var(--ink);
+      background: rgba(0,0,0,.28);
+      border-color: rgba(217,180,100,.42);
+    }
+
+    main {
+      min-height: 100vh;
+      padding: clamp(90px, 12vh, 120px) clamp(14px, 4vw, 42px) 38px;
+    }
+
+    .scene {
+      width: min(1260px, 100%);
+      margin: 0 auto;
+    }
+
+    .scene-head {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      width: max-content;
+      margin: 0 auto;
+      padding: 6px 12px;
+      border: 1px solid rgba(217,180,100,.44);
+      border-radius: 999px;
+      color: #f7e4aa;
+      background: rgba(0,0,0,.34);
+      font-weight: 900;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(2rem, 5vw, 4.3rem);
+      letter-spacing: 0;
+    }
+
+    .scene-head p {
+      width: min(900px, 100%);
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: clamp(1rem, 2vw, 1.16rem);
+    }
+
+    .guide {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .guide-card {
+      min-height: 124px;
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid rgba(217,180,100,.3);
+      border-radius: 10px;
+      background: rgba(0,0,0,.38);
+      box-shadow: 0 14px 34px rgba(0,0,0,.26);
+    }
+
+    .guide-portrait {
+      width: 82px;
+      height: 102px;
+      border: 1px solid rgba(217,180,100,.34);
+      border-radius: 8px;
+      background: var(--portrait) center top / cover no-repeat, rgba(0,0,0,.2);
+    }
+
+    .guide-card h2 {
+      margin: 0 0 4px;
+      color: var(--gold);
+      font-size: 1.12rem;
+    }
+
+    .guide-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: .96rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .column {
+      min-height: 470px;
+      padding: 14px;
+      border: 2px dashed rgba(217,180,100,.38);
+      border-radius: 10px;
+      background: rgba(0,0,0,.35);
+      box-shadow: 0 18px 48px rgba(0,0,0,.32);
+      transition: border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .column h2 {
+      margin: 0 0 6px;
+      color: var(--gold);
+      text-align: center;
+      font-size: 1.32rem;
+    }
+
+    .column small {
+      display: block;
+      min-height: 42px;
+      margin-bottom: 10px;
+      color: rgba(248,236,210,.66);
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .column.over {
+      border-color: rgba(248,218,145,.9);
+      box-shadow: 0 0 28px rgba(217,180,100,.22);
+    }
+
+    .column.correct-drop {
+      border-style: solid;
+      border-color: rgba(132,205,107,.86);
+      background: rgba(58,103,55,.25);
+    }
+
+    .column.wrong {
+      animation: wrong .22s ease;
+    }
+
+    .pile {
+      min-height: 120px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .tray-wrap {
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px solid rgba(217,180,100,.32);
+      border-radius: 10px;
+      background: rgba(0,0,0,.34);
+      box-shadow: var(--shadow);
+    }
+
+    .tray-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .tray-head h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1.15rem;
+    }
+
+    .tray {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .card {
+      flex: 0 0 min(280px, 78vw);
+      padding: 12px 13px;
+      border: 1px solid rgba(217,180,100,.45);
+      border-radius: 8px;
+      color: var(--paper-ink);
+      background: linear-gradient(180deg, #f3e4be, #d8bf82);
+      box-shadow: 0 12px 26px rgba(0,0,0,.24);
+      line-height: 1.55;
+      font-weight: 900;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .card.locked {
+      cursor: default;
+      background: linear-gradient(180deg, #e8f3d2, #b7d597);
+      border-color: rgba(132,205,107,.9);
+    }
+
+    .card-ghost {
+      position: fixed;
+      z-index: 220;
+      width: min(330px, calc(100vw - 40px));
+      pointer-events: none;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      opacity: .94;
+    }
+
+    .summary {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(217,180,100,.48);
+      border-radius: 10px;
+      color: var(--paper-ink);
+      background: var(--paper);
+      line-height: 1.85;
+      box-shadow: var(--shadow);
+    }
+
+    .summary h2 {
+      margin: 0 0 10px;
+      color: #6e271f;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 120;
+      width: min(680px, calc(100% - 32px));
+      padding: 14px 18px;
+      border: 1px solid rgba(248,218,145,.5);
+      border-radius: 10px;
+      color: var(--ink);
+      background: rgba(23,22,16,.94);
+      box-shadow: var(--shadow);
+      transform: translateX(-50%);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    @keyframes wrong {
+      50% {
+        border-color: var(--red);
+        box-shadow: 0 0 28px rgba(154,51,40,.68);
+        background: rgba(154,51,40,.25);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .guide, .board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .top-tools, .tray-head {
+        display: grid;
+      }
+
+      main {
+        padding-top: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="top-tools" aria-label="證詞比對狀態">
+    <span id="statusText" class="status-pill">已歸檔 0 / 15</span>
+    <button id="resetBtn" class="clear-btn" type="button">重新比對</button>
+  </aside>
+
+  <aside id="teacherTools" class="teacher-tools" hidden>
+    <h2>教師測試面板</h2>
+    <div class="teacher-actions">
+      <button class="teacher-btn" type="button" data-teacher="complete">顯示完成</button>
+      <button class="teacher-btn" type="button" data-teacher="reset">重置白板</button>
+    </div>
+  </aside>
+
+  <main>
+    <section class="scene">
+      <div class="scene-head">
+        <div class="eyebrow">第三幕｜核心證詞對照</div>
+        <h1>證詞比對白板｜相同的事件，不同的真相</h1>
+        <p>請把關鍵線索拖到正確欄位。你會發現：證詞越完整，真相反而越分裂。</p>
+      </div>
+
+      <section class="guide" aria-label="三位核心證人提示">
+        <article class="guide-card">
+          <div class="guide-portrait" style="--portrait:url('../圖片/多襄丸.png');"></div>
+          <div>
+            <h2>多襄丸版本</h2>
+            <p>把暴力說成決鬥，把自己說成堂堂正正的強盜。</p>
+          </div>
+        </article>
+        <article class="guide-card">
+          <div class="guide-portrait" style="--portrait:url('../圖片/真砂.png');"></div>
+          <div>
+            <h2>真砂版本</h2>
+            <p>把事件核心放在受辱、羞恥與丈夫冷冽的凝視。</p>
+          </div>
+        </article>
+        <article class="guide-card">
+          <div class="guide-portrait" style="--portrait:url('../圖片/武士亡魂.png');"></div>
+          <div>
+            <h2>武士亡魂版本</h2>
+            <p>把死亡說成自殺，維護武士尊嚴與被背叛的名譽。</p>
+          </div>
+        </article>
+      </section>
+
+      <section id="board" class="board" aria-label="證詞比對白板"></section>
+
+      <section class="tray-wrap" aria-label="線索卡背包">
+        <div class="tray-head">
+          <h2>待歸檔線索卡</h2>
+          <button id="shuffleBtn" class="ghost-btn" type="button">重新洗牌</button>
+        </div>
+        <div id="tray" class="tray"></div>
+      </section>
+
+      <section id="summary" class="summary" hidden>
+        <h2>比對完成</h2>
+        <p>三份證詞有共同的核心：武士死亡、真砂受辱、多襄丸涉入事件。</p>
+        <p>但在最關鍵的地方——誰殺了武士、用什麼凶器、誰替武士鬆綁、誰先逃走、真砂究竟是受害者還是背叛者——三人說法彼此衝突。</p>
+        <p>這些衝突提醒我們：證詞不是透明的事實，而是每個人站在自己的羞恥、自尊、慾望與恐懼中說出的版本。</p>
+        <button id="nextBtn" class="primary-btn" type="button">進入真相報告</button>
+      </section>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script>
+    const COLUMNS = [
+      {
+        id: "tajomaru",
+        title: "多襄丸版本",
+        note: "豪勇決鬥、強盜自我美化、凶器為大刀。"
+      },
+      {
+        id: "masago",
+        title: "真砂版本",
+        note: "羞恥崩潰、丈夫眼神、凶器為匕首。"
+      },
+      {
+        id: "samurai",
+        title: "武士亡魂版本",
+        note: "妻子背叛、武士尊嚴、自殺敘述。"
+      }
+    ];
+
+    const CARDS = [
+      { id: "t1", text: "武士死因：決鬥後被大刀殺死", answer: "tajomaru" },
+      { id: "t2", text: "凶器：大刀", answer: "tajomaru" },
+      { id: "t3", text: "誰鬆綁：多襄丸為了決鬥替武士鬆綁", answer: "tajomaru" },
+      { id: "t4", text: "誰先逃走：真砂在決鬥時逃走", answer: "tajomaru" },
+      { id: "t5", text: "真砂形象：激起慾望、要求兩男決鬥的女人", answer: "tajomaru" },
+      { id: "m1", text: "武士死因：被真砂以匕首刺死", answer: "masago" },
+      { id: "m2", text: "凶器：匕首", answer: "masago" },
+      { id: "m3", text: "誰鬆綁：真砂殺夫後替武士解開繩子", answer: "masago" },
+      { id: "m4", text: "誰先逃走：多襄丸先逃走", answer: "masago" },
+      { id: "m5", text: "真砂形象：受辱後因丈夫眼神而崩潰的女人", answer: "masago" },
+      { id: "s1", text: "武士死因：自己以匕首自殺", answer: "samurai" },
+      { id: "s2", text: "凶器：匕首", answer: "samurai" },
+      { id: "s3", text: "誰鬆綁：多襄丸離開前割斷繩子", answer: "samurai" },
+      { id: "s4", text: "誰先逃走：真砂先逃走，多襄丸後離開", answer: "samurai" },
+      { id: "s5", text: "真砂形象：被強盜誘惑、甚至要求殺夫的女人", answer: "samurai" }
+    ];
+
+    const $ = id => document.getElementById(id);
+    const placed = new Set();
+    let drag = null;
+
+    init();
+
+    function init() {
+      $("resetBtn").addEventListener("click", resetBoard);
+      $("shuffleBtn").addEventListener("click", renderTray);
+      $("nextBtn").addEventListener("click", () => {
+        location.href = "../第四幕_真相報告/index.html";
+      });
+      bindTeacherTools();
+      renderBoard();
+      renderTray();
+      updateStatus();
+    }
+
+    function bindTeacherTools() {
+      const params = new URLSearchParams(location.search);
+      if (params.get("teacher") !== "1") return;
+      $("teacherTools").hidden = false;
+      document.querySelectorAll("[data-teacher]").forEach(button => {
+        button.addEventListener("click", () => {
+          if (button.dataset.teacher === "complete") forceComplete();
+          if (button.dataset.teacher === "reset") resetBoard();
+        });
+      });
+    }
+
+    function forceComplete() {
+      resetBoard();
+      CARDS.forEach(cardData => {
+        const column = document.querySelector(`.column[data-column="${cardData.answer}"]`);
+        const card = document.querySelector(`.card[data-card="${cardData.id}"]`);
+        if (!column || !card) return;
+        card.classList.add("locked");
+        card.draggable = false;
+        column.querySelector(".pile").appendChild(card);
+        column.classList.add("correct-drop");
+        placed.add(cardData.id);
+      });
+      localStorage.setItem("core_comparison_done", "true");
+      $("summary").hidden = false;
+      updateStatus();
+      showToast("已顯示第三幕完成狀態。");
+    }
+
+    function renderBoard() {
+      $("board").innerHTML = COLUMNS.map(column => `
+        <section class="column" data-column="${column.id}">
+          <h2>${column.title}</h2>
+          <small>${column.note}</small>
+          <div class="pile"></div>
+        </section>
+      `).join("");
+
+      document.querySelectorAll(".column").forEach(column => {
+        column.addEventListener("dragover", event => {
+          event.preventDefault();
+          column.classList.add("over");
+        });
+        column.addEventListener("dragleave", () => column.classList.remove("over"));
+        column.addEventListener("drop", event => {
+          event.preventDefault();
+          column.classList.remove("over");
+          const id = event.dataTransfer.getData("text/plain");
+          const card = document.querySelector(`.card[data-card="${id}"]`);
+          if (card) handleDrop(column, card);
+        });
+      });
+    }
+
+    function renderTray() {
+      const remaining = shuffle(CARDS.filter(card => !placed.has(card.id)));
+      $("tray").innerHTML = remaining.map(card => `
+        <div class="card" draggable="true" data-card="${card.id}" data-answer="${card.answer}">${card.text}</div>
+      `).join("");
+      bindCards();
+    }
+
+    function bindCards() {
+      document.querySelectorAll(".card:not(.locked)").forEach(card => {
+        card.addEventListener("dragstart", event => {
+          event.dataTransfer.setData("text/plain", card.dataset.card);
+        });
+        card.addEventListener("pointerdown", startPointerDrag);
+      });
+    }
+
+    function startPointerDrag(event) {
+      if (event.button !== undefined && event.button !== 0) return;
+      const card = event.currentTarget;
+      if (card.classList.contains("locked")) return;
+      event.preventDefault();
+      const ghost = card.cloneNode(true);
+      ghost.classList.add("card-ghost");
+      ghost.style.left = `${event.clientX}px`;
+      ghost.style.top = `${event.clientY}px`;
+      document.body.appendChild(ghost);
+      drag = { card, ghost };
+      document.addEventListener("pointermove", movePointerDrag);
+      document.addEventListener("pointerup", endPointerDrag);
+      document.addEventListener("pointercancel", cancelPointerDrag);
+    }
+
+    function movePointerDrag(event) {
+      if (!drag) return;
+      drag.ghost.style.left = `${event.clientX}px`;
+      drag.ghost.style.top = `${event.clientY}px`;
+      document.querySelectorAll(".column.over").forEach(column => column.classList.remove("over"));
+      const column = columnAt(event.clientX, event.clientY);
+      if (column) column.classList.add("over");
+    }
+
+    function endPointerDrag(event) {
+      if (!drag) return;
+      const column = columnAt(event.clientX, event.clientY);
+      const card = drag.card;
+      cancelPointerDrag();
+      if (column) handleDrop(column, card);
+    }
+
+    function cancelPointerDrag() {
+      if (!drag) return;
+      drag.ghost.remove();
+      document.querySelectorAll(".column.over").forEach(column => column.classList.remove("over"));
+      document.removeEventListener("pointermove", movePointerDrag);
+      document.removeEventListener("pointerup", endPointerDrag);
+      document.removeEventListener("pointercancel", cancelPointerDrag);
+      drag = null;
+    }
+
+    function columnAt(x, y) {
+      if (drag?.ghost) drag.ghost.style.display = "none";
+      const column = document.elementFromPoint(x, y)?.closest?.(".column");
+      if (drag?.ghost) drag.ghost.style.display = "";
+      return column;
+    }
+
+    function handleDrop(column, card) {
+      if (card.classList.contains("locked")) return;
+      if (card.dataset.answer !== column.dataset.column) {
+        column.classList.remove("wrong");
+        void column.offsetWidth;
+        column.classList.add("wrong");
+        showToast("這張線索卡不屬於這份證詞，請回到三人的說法差異再判斷。");
+        return;
+      }
+
+      card.classList.add("locked");
+      card.draggable = false;
+      column.querySelector(".pile").appendChild(card);
+      column.classList.add("correct-drop");
+      placed.add(card.dataset.card);
+      updateStatus();
+
+      if (placed.size === CARDS.length) {
+        localStorage.setItem("core_comparison_done", "true");
+        $("summary").hidden = false;
+        $("summary").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        showToast("證詞比對完成：你已看見三份證詞在關鍵處如何分裂。");
+      }
+    }
+
+    function resetBoard() {
+      placed.clear();
+      localStorage.removeItem("core_comparison_done");
+      $("summary").hidden = true;
+      renderBoard();
+      renderTray();
+      updateStatus();
+      showToast("白板已清空，可以重新比對三份核心證詞。");
+    }
+
+    function updateStatus() {
+      $("statusText").textContent = `已歸檔 ${placed.size} / ${CARDS.length}`;
+    }
+
+    function showToast(message) {
+      $("toast").textContent = message;
+      $("toast").hidden = false;
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => $("toast").hidden = true, 2600);
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+  </script>
+</body>
+</html>

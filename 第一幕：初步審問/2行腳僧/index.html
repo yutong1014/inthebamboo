@@ -1,0 +1,1401 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>竹藪中：行腳僧證詞審訊</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #f7ecd2;
+      --muted: rgba(247, 236, 210, .72);
+      --paper: #efe0bf;
+      --paper-ink: #2a1c12;
+      --sumi: #0d100d;
+      --bamboo: #627b56;
+      --blood: #8d3127;
+      --gold: #d8b363;
+      --line: rgba(216, 179, 99, .3);
+      --shadow: 0 24px 70px rgba(0, 0, 0, .42);
+      --font: "Noto Serif TC", "PMingLiU", "MingLiU", serif;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      font-family: var(--font);
+      font-variant-east-asian: traditional;
+      background:
+        linear-gradient(90deg, rgba(8,9,7,.9), rgba(8,9,7,.58) 50%, rgba(8,9,7,.82)),
+        linear-gradient(180deg, rgba(8,9,7,.32), rgba(8,9,7,.9)),
+        url("../../圖片/行腳僧.png") right bottom / auto 92vh fixed no-repeat,
+        linear-gradient(135deg, #080907, #151a13 55%, #070807);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      opacity: .16;
+      background-image:
+        linear-gradient(92deg, transparent 0 8%, rgba(219,236,190,.24) 8.2% 8.8%, transparent 9% 20%),
+        linear-gradient(86deg, transparent 0 28%, rgba(219,236,190,.18) 28.2% 28.8%, transparent 29% 42%);
+      background-size: 210px 100%;
+    }
+
+    body::after {
+      opacity: .12;
+      background:
+        radial-gradient(circle at 50% 42%, transparent 0 42%, #000 86%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 1px, transparent 1px 6px);
+    }
+
+    button { font: inherit; }
+
+    .home-link {
+      position: fixed;
+      left: 14px;
+      top: 86px;
+      z-index: 80;
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 14px;
+      border: 1px solid rgba(248, 218, 145, .72);
+      border-radius: 8px;
+      color: #24160d;
+      background: linear-gradient(180deg, #f5df9d, #c68e43);
+      box-shadow: 0 14px 30px rgba(0,0,0,.34);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .status-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) repeat(4, auto);
+      gap: 10px;
+      align-items: center;
+      padding: 12px clamp(12px, 2vw, 24px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 11, 9, .86);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .seal {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 2px solid rgba(216,179,99,.74);
+      border-radius: 8px;
+      color: #ffe9b0;
+      background: rgba(111, 44, 35, .82);
+      font-weight: 900;
+    }
+
+    .brand p,
+    .stat span {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .brand h1 {
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      font-size: clamp(1.08rem, 2.4vw, 1.75rem);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .stat {
+      min-width: 96px;
+      padding: 8px 10px;
+      border: 1px solid rgba(216,179,99,.24);
+      border-radius: 8px;
+      background: rgba(255,255,255,.055);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 2px;
+      color: var(--gold);
+      font-size: 1.08rem;
+      line-height: 1.1;
+    }
+
+    .screen {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 34px);
+    }
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: clamp(18px, 4vw, 56px);
+      align-items: end;
+    }
+
+    .hero h2 {
+      margin: 10px 0 12px;
+      max-width: 920px;
+      font-size: clamp(2.8rem, 8vw, 7.4rem);
+      line-height: .98;
+      letter-spacing: 0;
+      text-shadow: 0 18px 44px rgba(0,0,0,.42);
+    }
+
+    .hero h3 {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: clamp(1.3rem, 3vw, 2.55rem);
+      line-height: 1.25;
+    }
+
+    .hero p {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.22rem);
+      line-height: 1.85;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border: 1px solid rgba(216,179,99,.34);
+      border-radius: 999px;
+      color: var(--gold);
+      background: rgba(0,0,0,.18);
+      font-size: .84rem;
+      font-weight: 900;
+    }
+
+    .panel,
+    .drop-zone,
+    .paper,
+    .feedback,
+    .result-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(22, 21, 16, .72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: 1.35rem;
+    }
+
+    .panel ol {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .primary-btn,
+    .ghost-btn {
+      min-height: 44px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .primary-btn {
+      margin-top: 16px;
+      padding: 10px 18px;
+      border: 1px solid rgba(248, 218, 145, .82);
+      color: #24160d;
+      background: linear-gradient(180deg, #f5df9d, #c68e43);
+      box-shadow: 0 16px 32px rgba(0,0,0,.28);
+    }
+
+    .ghost-btn {
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: rgba(0,0,0,.18);
+    }
+
+    .stage-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 14px;
+      min-width: 0;
+    }
+
+    .stage-head > div {
+      min-width: 0;
+    }
+
+    .stage-head h2 {
+      margin: 6px 0 4px;
+      max-width: 100%;
+      font-size: clamp(1.7rem, 4vw, 3.25rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .stage-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 370px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .paper {
+      min-width: 0;
+      padding: 20px 18px;
+      color: var(--paper-ink);
+      background:
+        linear-gradient(90deg, rgba(120,72,32,.08), transparent 10%, transparent 90%, rgba(120,72,32,.08)),
+        var(--paper);
+      box-shadow: inset 0 0 35px rgba(108, 73, 32, .13);
+    }
+
+    .paper h3 {
+      margin: 0 0 12px;
+      color: #7a2d24;
+      font-size: 1.35rem;
+    }
+
+    .paper p {
+      margin: 0 0 12px;
+      line-height: 1.85;
+      text-align: justify;
+      overflow-wrap: anywhere;
+    }
+
+    .board {
+      display: grid;
+      gap: 12px;
+    }
+
+    .zone-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(140px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .judgement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .drop-zone {
+      min-height: 170px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 12px;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .drop-zone h3 {
+      margin: 0;
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+
+    .drop-zone p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.5;
+    }
+
+    .drop-zone.hover {
+      border-color: rgba(248, 218, 145, .9);
+      box-shadow: 0 0 26px rgba(216,179,99,.22);
+    }
+
+    .drop-zone.wrong-flash {
+      animation: wrongFlash .2s ease;
+    }
+
+    .placed-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tray-wrap {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+
+    .tray-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .tray-title h3 {
+      margin: 0;
+      color: var(--gold);
+      font-size: 1.12rem;
+    }
+
+    .card-tray {
+      display: flex;
+      gap: 10px;
+      min-height: 126px;
+      overflow-x: auto;
+      padding: 12px;
+      border: 1px solid rgba(216,179,99,.22);
+      border-radius: 10px;
+      background: rgba(0,0,0,.18);
+      scroll-snap-type: x proximity;
+    }
+
+    .drag-card,
+    .placed-card {
+      width: 220px;
+      min-height: 96px;
+      flex: 0 0 220px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid rgba(216,179,99,.44);
+      border-radius: 10px;
+      color: var(--paper-ink);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0)),
+        #ead8ae;
+      box-shadow: 0 12px 24px rgba(0,0,0,.22);
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      scroll-snap-align: start;
+    }
+
+    .drag-card.selected {
+      border-color: rgba(248, 218, 145, .95);
+      box-shadow:
+        0 0 0 3px rgba(216,179,99,.22),
+        0 18px 34px rgba(0,0,0,.28);
+    }
+
+    .drag-card.used {
+      display: none;
+    }
+
+    .mini {
+      color: rgba(39, 27, 19, .62);
+      font-size: .76rem;
+      font-weight: 900;
+    }
+
+    .drag-card p,
+    .placed-card p {
+      margin: 0;
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .placed-card {
+      width: 100%;
+      min-height: auto;
+      flex-basis: auto;
+      border-color: rgba(117,163,93,.82);
+      background: linear-gradient(180deg, #f3e6bd, #d8c28b);
+      cursor: default;
+    }
+
+    .drag-ghost {
+      position: fixed;
+      z-index: 100;
+      pointer-events: none;
+      width: 220px;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      opacity: .96;
+      box-shadow: 0 24px 50px rgba(0,0,0,.45);
+    }
+
+    .feedback {
+      min-height: 76px;
+      margin-top: 12px;
+      padding: 14px;
+      border-color: rgba(216,179,99,.24);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .feedback strong {
+      color: var(--gold);
+    }
+
+    .review-card {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: clamp(18px, 4vw, 30px);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background:
+        linear-gradient(120deg, rgba(239,224,191,.08), transparent 38%),
+        rgba(22, 21, 16, .74);
+      box-shadow: var(--shadow);
+    }
+
+    .review-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .review-question {
+      margin: 0 0 16px;
+      color: var(--ink);
+      font-size: clamp(1.45rem, 3.2vw, 2.25rem);
+      line-height: 1.35;
+    }
+
+    .review-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .review-option {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
+      min-height: 58px;
+      padding: 12px 14px;
+      border: 1px solid rgba(216,179,99,.36);
+      border-radius: 8px;
+      color: var(--paper-ink);
+      background: linear-gradient(180deg, #f1dfb8, #d8c28b);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .review-option:hover:not(:disabled) {
+      border-color: rgba(248, 218, 145, .9);
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      transform: translateY(-1px);
+    }
+
+    .review-option:disabled {
+      cursor: default;
+    }
+
+    .review-option.correct {
+      border-color: rgba(117,163,93,.9);
+      box-shadow: 0 0 0 3px rgba(117,163,93,.18);
+    }
+
+    .review-option.wrong {
+      border-color: rgba(141,49,39,.9);
+      box-shadow: 0 0 0 3px rgba(141,49,39,.18);
+    }
+
+    .option-key {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #f6e5bb;
+      background: rgba(92, 43, 30, .86);
+      font-weight: 900;
+    }
+
+    .stage-complete {
+      margin-top: 14px;
+      padding: 18px;
+      border: 1px solid rgba(117,163,93,.55);
+      border-radius: 10px;
+      background: rgba(70, 100, 55, .22);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .result-card {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 48px);
+    }
+
+    .result-card h2 {
+      margin: 8px 0 12px;
+      color: var(--gold);
+      font-size: clamp(2.2rem, 6vw, 4.7rem);
+      letter-spacing: 0;
+    }
+
+    .result-card p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .result-grid div {
+      padding: 14px;
+      border: 1px solid rgba(216,179,99,.22);
+      border-radius: 10px;
+      background: rgba(255,255,255,.06);
+      text-align: center;
+    }
+
+    .result-grid span {
+      display: block;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .result-grid strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--gold);
+      font-size: 1.45rem;
+    }
+
+    .report {
+      padding: 18px;
+      border-radius: 10px;
+      color: var(--paper-ink);
+      background: var(--paper);
+      line-height: 1.75;
+    }
+
+    .report ol {
+      margin: 10px 0 0;
+      padding-left: 1.35rem;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 120;
+      max-width: min(680px, calc(100% - 28px));
+      padding: 12px 16px;
+      border: 1px solid rgba(216,179,99,.36);
+      border-radius: 999px;
+      color: #24160c;
+      background: linear-gradient(180deg, #f4dda1, #d6ad5d);
+      box-shadow: 0 18px 42px rgba(0,0,0,.34);
+      text-align: center;
+      font-weight: 900;
+      transform: translate(-50%, 18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes wrongFlash {
+      50% {
+        border-color: var(--blood);
+        box-shadow: 0 0 28px rgba(174,48,38,.64);
+        background: rgba(128, 35, 28, .22);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .status-bar {
+        grid-template-columns: 1fr repeat(2, auto);
+      }
+
+      .stat:nth-of-type(n+4) {
+        display: none;
+      }
+
+      .hero,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .zone-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .status-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .brand {
+        grid-column: 1 / -1;
+      }
+
+      .stat {
+        min-width: 0;
+      }
+
+      .hero {
+        align-items: start;
+        min-height: auto;
+      }
+
+      .hero h2 {
+        font-size: clamp(2.65rem, 15vw, 4.8rem);
+      }
+
+      .stage-head {
+        display: grid;
+      }
+
+      .stage-head h2 {
+        font-size: clamp(1.65rem, 9vw, 2.35rem);
+      }
+
+      .zone-grid,
+      .judgement-grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .drag-card {
+        width: 82vw;
+        flex-basis: 82vw;
+      }
+
+      .paper {
+        padding: 18px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="home-link" href="../竹藪中審訊/index.html">← 回到主審台</a>
+  <main>
+    <header class="status-bar" aria-live="polite">
+      <div class="brand">
+        <div class="seal">僧</div>
+        <div>
+          <p>初步審問・案發前目擊</p>
+          <h1>竹藪中：行腳僧證詞審訊</h1>
+        </div>
+      </div>
+      <div class="stat"><span>目前關卡</span><strong id="stageStat">開場</strong></div>
+      <div class="stat"><span>有效線索</span><strong id="correctStat">0</strong></div>
+      <div class="stat"><span>總嘗試</span><strong id="attemptStat">0</strong></div>
+      <div class="stat"><span>精準度</span><strong id="accuracyStat">0%</strong></div>
+    </header>
+
+    <section id="coverScreen" class="screen hero">
+      <div>
+        <span class="tag">行路僧人・山道目擊</span>
+        <h2>竹藪中：行腳僧證詞審訊</h2>
+        <h3>他曾在命案前遇見武士夫妻，但他看見的是事實，還是真相的邊緣？</h3>
+        <p>你將整理行腳僧在案發前看見的時間、地點、人物外觀、攜帶物與情感判斷。這一頁的核心不是找兇手，而是判斷：行腳僧的證詞能補足什麼，又不能證明什麼。</p>
+        <button id="startBtn" class="primary-btn" type="button">開始審訊</button>
+      </div>
+      <aside class="panel">
+        <h3>審訊流程</h3>
+        <ol>
+          <li>旅人證詞分類：整理時間、地點、人物與感觸。</li>
+          <li>審訊選擇題：判讀時間線、人物線索與生命無常。</li>
+          <li>價值與限制判斷：區分可支持與不能證明。</li>
+        </ol>
+      </aside>
+    </section>
+
+    <section id="stageOne" class="screen" hidden>
+      <div class="stage-head">
+        <div>
+          <span class="tag">第一關｜旅人證詞分類</span>
+          <h2>整理行腳僧看見的時間、地點與人物線索</h2>
+          <p>拖曳下方線索卡到正確分類區；也可以先點選卡牌，再點分類區。</p>
+        </div>
+        <button class="ghost-btn" type="button" data-reset>重新開始</button>
+      </div>
+
+      <div class="layout">
+        <aside class="paper">
+          <h3>行腳僧證詞摘錄</h3>
+          <p>那個死去的男人，我昨天確實遇過。昨天——嗯……應該是晌午吧。</p>
+          <p>地點是從關山到山科的途中，那男人是和騎馬的女人從關山方向走來。</p>
+          <p>因為女人戴著市女笠面紗，我不知道她的面容，只看見外面是紅褐色的衣裳，而裡面好像都是青色的。</p>
+          <p>馬是茶紅色的，彷彿是匹鬃毛被剃掉的馬。您說有多高？大概有四尺四寸吧？</p>
+          <p>因為我是出家修道的人，對這些不大清楚。</p>
+          <p>那男人——不但帶著佩刀，也攜著弓箭。尤其，在黑漆的箭囊裡，插著二十來支箭。我現在還記得很清楚。</p>
+          <p>那男人會落得這樣，真是做夢都想不到，人的生命如露亦如電，一點也不錯。唉唉，這該怎麼講呢？實在怪可憐的。</p>
+        </aside>
+
+        <section class="board">
+          <div id="categoryGrid" class="zone-grid"></div>
+          <div id="stageOneFeedback" class="feedback"><strong>案卷批註：</strong>先整理行腳僧能直接提供的目擊資訊，不急著推論兇手。</div>
+        </section>
+
+        <section class="tray-wrap">
+          <div class="tray-title">
+            <h3>線索卡</h3>
+            <span class="tag">拖曳分類</span>
+          </div>
+          <div id="evidenceTray" class="card-tray"></div>
+          <div id="stageOneDone" class="stage-complete" hidden>
+            <strong>第一關完成：</strong>你已完成行腳僧證詞的基本線索歸納。<br>
+            <button id="toStageTwoBtn" class="primary-btn" type="button">進入第二關</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="stageTwo" class="screen" hidden>
+      <div class="stage-head">
+        <div>
+          <span class="tag">第二關｜山路之前：最後目擊</span>
+          <h2>用選擇題確認行腳僧證詞的閱讀重點</h2>
+          <p>第一關已整理出線索；這一關要判斷它們如何補足案發前時間線，以及證詞仍有哪些邊界。</p>
+        </div>
+        <button class="ghost-btn" type="button" data-reset>重新開始</button>
+      </div>
+
+      <section class="board">
+        <div class="review-card">
+          <div id="reviewMeta" class="review-meta"></div>
+          <h3 id="reviewQuestion" class="review-question"></h3>
+          <div id="reviewOptions" class="review-options"></div>
+          <div id="stageTwoFeedback" class="feedback"><strong>案卷批註：</strong>請根據行腳僧證詞判斷，不要把其他證人的內容提前混進來。</div>
+          <button id="nextReviewBtn" class="primary-btn" type="button" hidden>下一題</button>
+        </div>
+        <div id="stageTwoDone" class="stage-complete" hidden>
+          <strong>第二關完成：</strong>你已用選擇題確認行腳僧證詞的核心閱讀重點。<br>
+          <button id="toStageThreeBtn" class="primary-btn" type="button">進入第三關</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="stageThree" class="screen" hidden>
+      <div class="stage-head">
+        <div>
+          <span class="tag">第三關｜證詞價值與限制判斷</span>
+          <h2>這份證詞可以支持什麼，又不能證明什麼？</h2>
+          <p>把判斷卡拖曳到正確區域。完成後會計算審訊精準度。</p>
+        </div>
+        <button class="ghost-btn" type="button" data-reset>重新開始</button>
+      </div>
+
+      <section class="board">
+        <div class="judgement-grid">
+          <div class="drop-zone" data-zone="supported">
+            <h3>行腳僧證詞可以支持</h3>
+            <p>根據行腳僧親身目擊與明確陳述可成立的判斷。</p>
+            <div class="placed-list"></div>
+          </div>
+          <div class="drop-zone" data-zone="unsupported">
+            <h3>行腳僧證詞不能證明</h3>
+            <p>超出案發前目擊範圍，或需其他證詞才能成立的說法。</p>
+            <div class="placed-list"></div>
+          </div>
+        </div>
+        <div id="stageThreeFeedback" class="feedback"><strong>案卷批註：</strong>請記住：行腳僧是案發前目擊者，不是案發現場目擊者。</div>
+      </section>
+
+      <section class="tray-wrap">
+        <div class="tray-title">
+          <h3>判斷卡</h3>
+          <span class="tag">價值與限制</span>
+        </div>
+        <div id="judgementTray" class="card-tray"></div>
+        <div id="stageThreeDone" class="stage-complete" hidden>
+          <strong>第三關完成：</strong>你已完成行腳僧證詞價值與限制判斷。<br>
+          <button id="showResultBtn" class="primary-btn" type="button">查看審訊結果</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="resultScreen" class="screen" hidden>
+      <article class="result-card">
+        <span class="tag">審訊結果</span>
+        <h2 id="resultTitle">行腳僧審訊報告</h2>
+        <p id="resultLead"></p>
+        <div class="result-grid">
+          <div><span>有效線索數</span><strong id="resultCorrect">0</strong></div>
+          <div><span>總嘗試次數</span><strong id="resultAttempts">0</strong></div>
+          <div><span>審訊精準度</span><strong id="resultAccuracy">0%</strong></div>
+          <div><span>通過門檻</span><strong id="resultPass">80%</strong></div>
+        </div>
+        <div id="reportBox" class="report"></div>
+        <button class="primary-btn" type="button" data-reset>重新審問</button>
+      </article>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ===== 資料區：老師日後若要改成其他證人，可優先替換以下分類、題目與判斷卡資料。 =====
+    const CATEGORIES = [
+      { id: 'time', title: '時間', description: '行腳僧遇見武士夫妻的時間。' },
+      { id: 'place', title: '地點', description: '行腳僧遇見武士夫妻的位置。' },
+      { id: 'woman', title: '女人樣態', description: '女子的外觀、衣著與乘坐的馬。' },
+      { id: 'man', title: '男人樣態', description: '男子的外觀與攜帶物。' },
+      { id: 'feeling', title: '行腳僧感觸', description: '行腳僧對命案與生命無常的感受。' }
+    ];
+
+    const EVIDENCE_CARDS = [
+      { id: 'm1', text: '昨天晌午', category: 'time', feedback: '這是行腳僧遇見武士夫妻的時間。' },
+      { id: 'm2', text: '從關山到山科的途中', category: 'place', feedback: '這是行腳僧遇見兩人的地點。' },
+      { id: 'm3', text: '女人戴著市女笠面紗，看不清面容', category: 'woman', feedback: '這說明行腳僧無法確認女子長相，只能描述衣著與外觀。' },
+      { id: 'm4', text: '女人外衣紅褐色，裡面好像是青色', category: 'woman', feedback: '這是女子衣著顏色的重要線索。' },
+      { id: 'm5', text: '女人騎著茶紅色、鬃毛被剃掉的馬', category: 'woman', feedback: '這可與後續捕吏證詞中的馬匹線索互相對照。' },
+      { id: 'm6', text: '男人帶著佩刀', category: 'man', feedback: '佩刀是武士身分與後續凶器問題的重要線索。' },
+      { id: 'm7', text: '男人攜帶弓箭，黑漆箭囊裡有二十來支箭', category: 'man', feedback: '這能與捕吏證詞中的扣押物互相對照。' },
+      { id: 'm8', text: '人的生命如露亦如電，實在怪可憐的', category: 'feeling', feedback: '這是行腳僧對生命無常與命案悲劇的感觸。' }
+    ];
+
+    const REVIEW_QUESTIONS = [
+      {
+        id: 'q13',
+        question: '行腳僧的證詞主要補足哪一段時間線？',
+        options: [
+          '武士死亡後的審判結果',
+          '多襄丸的童年經歷',
+          '老媼尋找女兒的過程',
+          '案發前武士夫妻的行蹤'
+        ],
+        answer: 3,
+        explanation: '行腳僧是在案發前、昨天晌午左右於山路上遇見武士夫妻，因此補足的是案發前行蹤。'
+      },
+      {
+        id: 'q14',
+        question: '行腳僧描述武士帶刀、弓箭，主要透露什麼？',
+        options: [
+          '武士原本具有武裝與身分象徵',
+          '武士是手無寸鐵的平民',
+          '武士其實是僧人',
+          '武士沒有任何防身能力'
+        ],
+        answer: 0,
+        explanation: '佩刀、弓箭與黑漆箭囊都指向武士的身分與武裝狀態，也能和後續證詞互相對照。'
+      },
+      {
+        id: 'q15',
+        question: '行腳僧看見女子戴面紗、騎馬同行，這段資訊最有助於確認什麼？',
+        options: [
+          '樵夫偷走短刀',
+          '真砂曾與武士同行',
+          '武士亡魂一定說謊',
+          '捕吏親眼看見命案'
+        ],
+        answer: 1,
+        explanation: '行腳僧雖然看不清女子面貌，但他能證明案發前有一名戴面紗的騎馬女子與武士同行。'
+      },
+      {
+        id: 'q16',
+        question: '行腳僧感嘆生命如露如電，主要表現什麼？',
+        options: [
+          '他知道真正兇手',
+          '他痛恨女性',
+          '生命無常',
+          '他想逃避審問'
+        ],
+        answer: 2,
+        explanation: '「如露亦如電」強調生命短暫易逝，呈現行腳僧面對命案時的無常感。'
+      },
+      {
+        id: 'q17',
+        question: '行腳僧與樵夫證詞的最大差異是什麼？',
+        options: [
+          '一個補案發前，一個補案發後',
+          '兩人都承認殺人',
+          '兩人都完全沒有提供線索',
+          '兩人說法互相否定所有事實'
+        ],
+        answer: 0,
+        explanation: '行腳僧提供案發前路上目擊；樵夫提供案發後現場狀態。兩者一起建立時間線，但都不能單獨判定兇手。'
+      }
+    ];
+
+    const JUDGEMENT_CARDS = [
+      { id: 'j1', text: '命案前，行腳僧曾在路上遇見武士夫妻。', answer: 'supported', feedback: '正確。這是行腳僧親身經驗。' },
+      { id: 'j2', text: '男子身上帶有佩刀、弓箭與箭囊。', answer: 'supported', feedback: '正確。這是行腳僧清楚描述的男子攜帶物。' },
+      { id: 'j3', text: '女子面容可以被行腳僧清楚辨認。', answer: 'unsupported', feedback: '不能證明。女子戴著市女笠面紗，行腳僧並未看清她的面容。' },
+      { id: 'j4', text: '多襄丸就是殺人兇手。', answer: 'unsupported', feedback: '不能證明。行腳僧沒有目擊案發過程。' },
+      { id: 'j5', text: '男子後來死亡，令行腳僧感到生命無常。', answer: 'supported', feedback: '正確。行腳僧以「人的生命如露亦如電」表達感觸。' },
+      { id: 'j6', text: '行腳僧的證詞可以直接還原案發過程。', answer: 'unsupported', feedback: '不能證明。行腳僧只是案發前的路上目擊者，不是案發現場目擊者。' }
+    ];
+
+    const TOTAL_ITEMS = EVIDENCE_CARDS.length + REVIEW_QUESTIONS.length + JUDGEMENT_CARDS.length;
+    const PASSING_ACCURACY = 80;
+    const state = {
+      stage: '開場',
+      attempts: 0,
+      correct: 0,
+      completed: 0,
+      evidenceDone: new Set(),
+      reviewDone: new Set(),
+      reviewIndex: 0,
+      reviewAnswered: false,
+      judgementDone: new Set()
+    };
+
+    const els = {
+      coverScreen: document.getElementById('coverScreen'),
+      stageOne: document.getElementById('stageOne'),
+      stageTwo: document.getElementById('stageTwo'),
+      stageThree: document.getElementById('stageThree'),
+      resultScreen: document.getElementById('resultScreen'),
+      stageStat: document.getElementById('stageStat'),
+      correctStat: document.getElementById('correctStat'),
+      attemptStat: document.getElementById('attemptStat'),
+      accuracyStat: document.getElementById('accuracyStat'),
+      categoryGrid: document.getElementById('categoryGrid'),
+      evidenceTray: document.getElementById('evidenceTray'),
+      reviewMeta: document.getElementById('reviewMeta'),
+      reviewQuestion: document.getElementById('reviewQuestion'),
+      reviewOptions: document.getElementById('reviewOptions'),
+      nextReviewBtn: document.getElementById('nextReviewBtn'),
+      judgementTray: document.getElementById('judgementTray'),
+      stageOneFeedback: document.getElementById('stageOneFeedback'),
+      stageTwoFeedback: document.getElementById('stageTwoFeedback'),
+      stageThreeFeedback: document.getElementById('stageThreeFeedback'),
+      stageOneDone: document.getElementById('stageOneDone'),
+      stageTwoDone: document.getElementById('stageTwoDone'),
+      stageThreeDone: document.getElementById('stageThreeDone'),
+      toast: document.getElementById('toast')
+    };
+
+    let drag = null;
+    let dragLast = null;
+    let selectedCard = null;
+    let toastTimer = null;
+
+    document.getElementById('startBtn').addEventListener('click', () => showStage('stageOne', '第一關'));
+    document.getElementById('toStageTwoBtn').addEventListener('click', () => showStage('stageTwo', '第二關'));
+    document.getElementById('toStageThreeBtn').addEventListener('click', () => showStage('stageThree', '第三關'));
+    document.getElementById('showResultBtn').addEventListener('click', showResult);
+    els.nextReviewBtn.addEventListener('click', nextReviewQuestion);
+    document.querySelectorAll('[data-reset]').forEach(button => button.addEventListener('click', resetGame));
+
+    init();
+
+    function init() {
+      renderCategoryZones();
+      renderTray(els.evidenceTray, shuffle(EVIDENCE_CARDS), 'evidence');
+      renderReviewQuestion();
+      renderTray(els.judgementTray, shuffle(JUDGEMENT_CARDS), 'judgement');
+      updateStatus();
+    }
+
+    function renderCategoryZones() {
+      els.categoryGrid.innerHTML = CATEGORIES.map(category => `
+        <div class="drop-zone" data-zone="${category.id}">
+          <h3>${category.title}</h3>
+          <p>${category.description}</p>
+          <div class="placed-list"></div>
+        </div>
+      `).join('');
+    }
+
+    function renderTray(container, cards, type) {
+      container.innerHTML = '';
+      cards.forEach(card => {
+        const el = document.createElement('article');
+        el.className = 'drag-card';
+        el.dataset.id = card.id;
+        el.dataset.type = type;
+        el.innerHTML = `<span class="mini">${labelForType(type)}</span><p>${card.text}</p>`;
+        el.addEventListener('pointerdown', startDrag);
+        container.appendChild(el);
+      });
+      bindDropZones();
+    }
+
+    function bindDropZones() {
+      document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.onclick = () => {
+          if (!selectedCard) return;
+          handleDrop(zone, selectedCard);
+        };
+      });
+    }
+
+    function renderReviewQuestion() {
+      const question = REVIEW_QUESTIONS[state.reviewIndex];
+      if (!question) return;
+      const optionLabels = ['A', 'B', 'C', 'D'];
+      state.reviewAnswered = state.reviewDone.has(question.id);
+      els.reviewMeta.innerHTML = `
+        <span>審訊題 ${state.reviewIndex + 1} / ${REVIEW_QUESTIONS.length}</span>
+        <span>案發前時間線</span>
+      `;
+      els.reviewQuestion.textContent = question.question;
+      els.reviewOptions.innerHTML = question.options.map((option, index) => `
+        <button class="review-option" type="button" data-option="${index}">
+          <span class="option-key">${optionLabels[index]}</span>
+          <span>${option}</span>
+        </button>
+      `).join('');
+      els.stageTwoFeedback.innerHTML = '<strong>案卷批註：</strong>請根據行腳僧證詞判斷，不要把其他證人的內容提前混進來。';
+      els.nextReviewBtn.hidden = true;
+      els.reviewOptions.querySelectorAll('.review-option').forEach(button => {
+        button.addEventListener('click', () => answerReviewQuestion(Number(button.dataset.option)));
+      });
+    }
+
+    function answerReviewQuestion(choice) {
+      const question = REVIEW_QUESTIONS[state.reviewIndex];
+      if (!question || state.reviewAnswered) return;
+      state.reviewAnswered = true;
+      state.reviewDone.add(question.id);
+      state.attempts += 1;
+      state.completed += 1;
+
+      const buttons = [...els.reviewOptions.querySelectorAll('.review-option')];
+      buttons.forEach(button => {
+        const index = Number(button.dataset.option);
+        button.disabled = true;
+        if (index === question.answer) button.classList.add('correct');
+        if (index === choice && choice !== question.answer) button.classList.add('wrong');
+      });
+
+      if (choice === question.answer) {
+        state.correct += 1;
+        els.stageTwoFeedback.innerHTML = `<strong>審訊成立：</strong>${question.explanation}`;
+      } else {
+        const correctLabel = ['A', 'B', 'C', 'D'][question.answer];
+        els.stageTwoFeedback.innerHTML = `<strong>審訊未成立：</strong>正確答案是 ${correctLabel}。${question.explanation}`;
+      }
+
+      if (state.reviewDone.size === REVIEW_QUESTIONS.length) {
+        els.nextReviewBtn.hidden = true;
+        els.stageTwoDone.hidden = false;
+      } else {
+        els.nextReviewBtn.hidden = false;
+      }
+      updateStatus();
+    }
+
+    function nextReviewQuestion() {
+      if (!state.reviewAnswered) return;
+      state.reviewIndex += 1;
+      renderReviewQuestion();
+    }
+
+    function startDrag(event) {
+      if (event.button !== undefined && event.button !== 0) return;
+      const source = event.currentTarget;
+      if (source.classList.contains('used')) return;
+      event.preventDefault();
+      const ghost = source.cloneNode(true);
+      ghost.classList.add('drag-ghost');
+      ghost.style.left = `${event.clientX}px`;
+      ghost.style.top = `${event.clientY}px`;
+      document.body.appendChild(ghost);
+      drag = {
+        source,
+        ghost,
+        id: source.dataset.id,
+        type: source.dataset.type,
+        startX: event.clientX,
+        startY: event.clientY
+      };
+      source.style.opacity = '.25';
+      document.addEventListener('pointermove', moveDrag);
+      document.addEventListener('pointerup', endDrag);
+      document.addEventListener('pointercancel', cancelDrag);
+    }
+
+    function moveDrag(event) {
+      if (!drag) return;
+      drag.ghost.style.left = `${event.clientX}px`;
+      drag.ghost.style.top = `${event.clientY}px`;
+      document.querySelectorAll('.drop-zone.hover').forEach(zone => zone.classList.remove('hover'));
+      const zone = getDropZone(event.clientX, event.clientY);
+      if (zone) zone.classList.add('hover');
+    }
+
+    function endDrag(event) {
+      if (!drag) return;
+      const zone = getDropZone(event.clientX, event.clientY);
+      const tapped = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < 8;
+      cleanupDrag();
+      if (zone) handleDrop(zone, dragLast);
+      if (!zone && tapped) selectCard(dragLast);
+    }
+
+    function cancelDrag() {
+      cleanupDrag();
+    }
+
+    function cleanupDrag() {
+      if (!drag) return;
+      dragLast = { ...drag };
+      drag.source.style.opacity = '';
+      drag.ghost.remove();
+      document.querySelectorAll('.drop-zone.hover').forEach(zone => zone.classList.remove('hover'));
+      document.removeEventListener('pointermove', moveDrag);
+      document.removeEventListener('pointerup', endDrag);
+      document.removeEventListener('pointercancel', cancelDrag);
+      drag = null;
+    }
+
+    function getDropZone(x, y) {
+      if (drag?.ghost) drag.ghost.style.display = 'none';
+      const element = document.elementFromPoint(x, y);
+      if (drag?.ghost) drag.ghost.style.display = '';
+      return element?.closest?.('.drop-zone') || null;
+    }
+
+    function handleDrop(zone, item) {
+      const card = getCard(item.type, item.id);
+      if (!card || isDone(item.type, item.id)) return;
+
+      state.attempts += 1;
+      const expected = expectedZone(item.type, card);
+      if (zone.dataset.zone === expected) {
+        state.correct += 1;
+        state.completed += 1;
+        markDone(item.type, item.id);
+        lockCard(zone, item.source, card, labelForType(item.type));
+        clearSelectedCard();
+        updateFeedback(item.type, `<strong>審訊成立：</strong>${card.feedback}`);
+        checkStageCompletion(item.type);
+      } else {
+        flashWrong(zone);
+        clearSelectedCard();
+        updateFeedback(item.type, `<strong>審訊未成立：</strong>這張卡不屬於「${zone.querySelector('h3').textContent}」。請回到行腳僧證詞，確認它是時間、地點、人物外觀、攜帶物，還是證詞限制。`);
+      }
+      updateStatus();
+    }
+
+    function lockCard(zone, source, card, label) {
+      source.classList.add('used');
+      const placed = document.createElement('article');
+      placed.className = 'placed-card';
+      placed.innerHTML = `<span class="mini">${label}</span><p>${card.text}</p>`;
+      zone.querySelector('.placed-list').appendChild(placed);
+    }
+
+    function selectCard(item) {
+      if (item.source.classList.contains('used')) return;
+      clearSelectedCard();
+      selectedCard = item;
+      item.source.classList.add('selected');
+      showToast('已選取卡牌，請點選正確區域');
+    }
+
+    function clearSelectedCard() {
+      if (selectedCard?.source) selectedCard.source.classList.remove('selected');
+      selectedCard = null;
+    }
+
+    function flashWrong(zone) {
+      zone.classList.remove('wrong-flash');
+      void zone.offsetWidth;
+      zone.classList.add('wrong-flash');
+    }
+
+    function checkStageCompletion(type) {
+      if (type === 'evidence' && state.evidenceDone.size === EVIDENCE_CARDS.length) els.stageOneDone.hidden = false;
+      if (type === 'judgement' && state.judgementDone.size === JUDGEMENT_CARDS.length) els.stageThreeDone.hidden = false;
+    }
+
+    function updateFeedback(type, html) {
+      if (type === 'evidence') els.stageOneFeedback.innerHTML = html;
+      if (type === 'judgement') els.stageThreeFeedback.innerHTML = html;
+    }
+
+    function showStage(screenId, stageName) {
+      ['coverScreen', 'stageOne', 'stageTwo', 'stageThree', 'resultScreen'].forEach(id => {
+        els[id].hidden = id !== screenId;
+      });
+      state.stage = stageName;
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      updateStatus();
+    }
+
+    function showResult() {
+      showStage('resultScreen', '結果');
+      const accuracy = getAccuracy();
+      const passed = accuracy >= PASSING_ACCURACY;
+      document.getElementById('resultTitle').textContent = passed ? '審訊成功，取得行腳僧審訊報告' : '審訊尚未通過，建議重新審問';
+      document.getElementById('resultLead').textContent = passed
+        ? '你已能掌握行腳僧證詞的價值與限制。'
+        : '你的審訊精準度尚未達 80%，建議重新整理時間、地點、人物特徵與證詞限制。';
+      document.getElementById('resultCorrect').textContent = state.correct;
+      document.getElementById('resultAttempts').textContent = state.attempts;
+      document.getElementById('resultAccuracy').textContent = `${accuracy}%`;
+      document.getElementById('resultPass').textContent = passed ? '通過' : '未通過';
+      document.getElementById('reportBox').innerHTML = passed ? passedReport(accuracy) : failedReport(accuracy);
+      if (passed) {
+        localStorage.setItem('bamboo_report_monk', JSON.stringify({
+          status: 'passed',
+          witness: '行腳僧',
+          accuracy: accuracy,
+          summary: '提供案發前武士夫妻的時間、地點、外觀與攜帶物線索。'
+        }));
+      }
+    }
+
+    function passedReport(accuracy) {
+      return `
+        <strong>取得憑證：行腳僧審訊報告</strong>
+        <ol>
+          <li>行腳僧在昨天晌午，於關山到山科途中遇見武士夫妻。</li>
+          <li>女子戴市女笠面紗，騎茶紅色、鬃毛被剃掉的馬。</li>
+          <li>男子帶佩刀、弓箭與黑漆箭囊。</li>
+          <li>行腳僧能提供案發前行蹤與人物特徵，但無法證明兇手與案發過程。</li>
+          <li>他對命案的感觸是生命短暫無常。</li>
+        </ol>
+        <p>審訊精準度：${accuracy}%</p>
+      `;
+    }
+
+    function failedReport(accuracy) {
+      return `
+        <strong>尚未取得憑證</strong>
+        <p>目前審訊精準度為 ${accuracy}%。請重新檢查：行腳僧是案發前的路上目擊者，不是案發現場目擊者；他的證詞能補足行蹤與外貌，不能直接判定兇手。</p>
+      `;
+    }
+
+    function resetGame() {
+      state.stage = '開場';
+      state.attempts = 0;
+      state.correct = 0;
+      state.completed = 0;
+      state.evidenceDone = new Set();
+      state.reviewDone = new Set();
+      state.reviewIndex = 0;
+      state.reviewAnswered = false;
+      state.judgementDone = new Set();
+      els.stageOneDone.hidden = true;
+      els.stageTwoDone.hidden = true;
+      els.stageThreeDone.hidden = true;
+      els.stageOneFeedback.innerHTML = '<strong>案卷批註：</strong>先整理行腳僧能直接提供的目擊資訊，不急著推論兇手。';
+      els.stageTwoFeedback.innerHTML = '<strong>案卷批註：</strong>請根據行腳僧證詞判斷，不要把其他證人的內容提前混進來。';
+      els.stageThreeFeedback.innerHTML = '<strong>案卷批註：</strong>請記住：行腳僧是案發前目擊者，不是案發現場目擊者。';
+      renderCategoryZones();
+      clearAllPlaced();
+      renderTray(els.evidenceTray, shuffle(EVIDENCE_CARDS), 'evidence');
+      renderReviewQuestion();
+      renderTray(els.judgementTray, shuffle(JUDGEMENT_CARDS), 'judgement');
+      showStage('coverScreen', '開場');
+    }
+
+    function clearAllPlaced() {
+      document.querySelectorAll('.placed-list').forEach(list => list.innerHTML = '');
+      clearSelectedCard();
+    }
+
+    function getCard(type, id) {
+      if (type === 'evidence') return EVIDENCE_CARDS.find(card => card.id === id);
+      return JUDGEMENT_CARDS.find(card => card.id === id);
+    }
+
+    function expectedZone(type, card) {
+      if (type === 'evidence') return card.category;
+      return card.answer;
+    }
+
+    function isDone(type, id) {
+      if (type === 'evidence') return state.evidenceDone.has(id);
+      return state.judgementDone.has(id);
+    }
+
+    function markDone(type, id) {
+      if (type === 'evidence') state.evidenceDone.add(id);
+      if (type === 'judgement') state.judgementDone.add(id);
+    }
+
+    function labelForType(type) {
+      if (type === 'evidence') return '線索卡';
+      return '判斷卡';
+    }
+
+    function getAccuracy() {
+      return state.attempts ? Math.round((state.correct / state.attempts) * 100) : 0;
+    }
+
+    function updateStatus() {
+      els.stageStat.textContent = state.stage;
+      els.correctStat.textContent = state.correct;
+      els.attemptStat.textContent = state.attempts;
+      els.accuracyStat.textContent = `${getAccuracy()}%`;
+    }
+
+    function showToast(message) {
+      clearTimeout(toastTimer);
+      els.toast.textContent = message;
+      els.toast.classList.add('show');
+      toastTimer = setTimeout(() => els.toast.classList.remove('show'), 1600);
+    }
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+  </script>
+</body>
+</html>
