@@ -74,5 +74,6 @@
     function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
     $("startBtn").onclick=()=>{state.stage="第一關";show("stageOne");update()};$("toStageTwo").onclick=()=>{state.stage="第二關";show("stageTwo");update()};$("toStageThree").onclick=()=>{state.stage="第三關";show("stageThree");renderQ();update()};$("nextQ").onclick=()=>{if(state.q===profile.quiz.length-1)result();else{state.q++;renderQ()}};document.querySelectorAll("[data-reset]").forEach(b=>b.onclick=()=>{init();show("cover")});init();
   </script>
+  <script src="../../music-player.js"></script>
 </body>
 </html>
