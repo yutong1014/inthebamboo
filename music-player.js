@@ -12,7 +12,7 @@
     .bamboo-music-toggle {
       position: fixed;
       right: 14px;
-      bottom: 14px;
+      bottom: 58px;
       z-index: 9999;
       min-height: 40px;
       padding: 9px 13px;
