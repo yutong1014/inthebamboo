@@ -744,7 +744,7 @@
             <button class="hotspot" data-stage="woodcutter" aria-label="前往樵夫審問" style="left:10.1%;top:36%;width:16.5%;height:9.5%;"></button>
             <button class="hotspot" data-stage="monk" aria-label="前往行腳僧審問" style="left:77%;top:34.6%;width:16.4%;height:9%;"></button>
             <button class="hotspot" data-stage="constable" aria-label="前往捕吏審問" style="left:7.8%;top:89.3%;width:16.2%;height:8.1%;"></button>
-            <button class="hotspot" data-stage="oldwoman" aria-label="前往老嫗審問" style="left:78.2%;top:89.2%;width:16.2%;height:8.1%;"></button>
+            <button class="hotspot" data-stage="oldwoman" aria-label="前往老媼審問" style="left:78.2%;top:89.2%;width:16.2%;height:8.1%;"></button>
             <button class="hotspot" data-stage="core" aria-label="進入核心審訊" style="left:40.9%;top:64.8%;width:19.2%;height:9.7%;"></button>
             <div id="stampLayer"></div>
           </div>
@@ -836,9 +836,9 @@
       },
       {
         id: "oldwoman",
-        name: "老嫗",
-        href: "../4老嫗/index.html",
-        certName: "老嫗證詞",
+        name: "老媼",
+        href: "../4老媼/index.html",
+        certName: "老媼證詞",
         keys: ["witness_oldwoman", "bamboo_report_oldwoman", "cert_oldwoman"],
         stamp: { left: "89.2%", top: "85.4%" }
       }
@@ -1056,11 +1056,11 @@
         ["witness_woodcutter", "樵夫"],
         ["witness_monk", "行腳僧"],
         ["witness_officer", "捕吏"],
-        ["witness_oldwoman", "老嫗"],
+        ["witness_oldwoman", "老媼"],
         ["bamboo_report_woodcutter", "樵夫"],
         ["bamboo_report_monk", "行腳僧"],
         ["bamboo_report_constable", "捕吏"],
-        ["bamboo_report_oldwoman", "老嫗"]
+        ["bamboo_report_oldwoman", "老媼"]
       ];
       previewReports.forEach(([key, witness]) => {
         if (!localStorage.getItem(key)) {
@@ -1128,11 +1128,11 @@
         ["witness_woodcutter", "樵夫"],
         ["witness_monk", "行腳僧"],
         ["witness_officer", "捕吏"],
-        ["witness_oldwoman", "老嫗"],
+        ["witness_oldwoman", "老媼"],
         ["bamboo_report_woodcutter", "樵夫"],
         ["bamboo_report_monk", "行腳僧"],
         ["bamboo_report_constable", "捕吏"],
-        ["bamboo_report_oldwoman", "老嫗"]
+        ["bamboo_report_oldwoman", "老媼"]
       ].forEach(([key, witness]) => {
         localStorage.setItem(key, JSON.stringify({ status: "passed", witness, preview: true }));
       });
