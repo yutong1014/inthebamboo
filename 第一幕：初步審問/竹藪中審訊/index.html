@@ -179,19 +179,15 @@
 
     .map-frame {
       position: relative;
-      width: 100%;
-      height: 100%;
-      display: grid;
-      place-items: center;
+      width: min(100%, calc((100vh - 105px) * 1672 / 941));
+      aspect-ratio: 1672 / 941;
       filter: drop-shadow(0 28px 70px rgba(0,0,0,.52));
     }
 
     .map-image {
       display: block;
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       border: 1px solid rgba(217,180,100,.22);
       border-radius: 10px;
@@ -201,12 +197,8 @@
     .map-layer {
       position: absolute;
       inset: 0;
-      margin: auto;
-      aspect-ratio: 1672 / 941;
-      max-width: 100%;
-      max-height: 100%;
-      width: min(100%, calc((100vh - 105px) * 1672 / 941));
-      height: auto;
+      width: 100%;
+      height: 100%;
     }
 
     .hotspot {
@@ -741,11 +733,11 @@
         <div class="map-frame">
           <img class="map-image" src="../../圖片/初步審問-人物圖.png" alt="初步審問人物圖">
           <div class="map-layer">
-            <button class="hotspot" data-stage="woodcutter" aria-label="前往樵夫審問" style="left:10.1%;top:36%;width:16.5%;height:9.5%;"></button>
-            <button class="hotspot" data-stage="monk" aria-label="前往行腳僧審問" style="left:77%;top:34.6%;width:16.4%;height:9%;"></button>
-            <button class="hotspot" data-stage="constable" aria-label="前往捕吏審問" style="left:7.8%;top:89.3%;width:16.2%;height:8.1%;"></button>
-            <button class="hotspot" data-stage="oldwoman" aria-label="前往老媼審問" style="left:78.2%;top:89.2%;width:16.2%;height:8.1%;"></button>
-            <button class="hotspot" data-stage="core" aria-label="進入核心審訊" style="left:40.9%;top:64.8%;width:19.2%;height:9.7%;"></button>
+            <button class="hotspot" data-stage="woodcutter" aria-label="前往樵夫審問" style="left:10.1%;top:36.3%;width:14.7%;height:8.3%;"></button>
+            <button class="hotspot" data-stage="monk" aria-label="前往行腳僧審問" style="left:74.3%;top:36.3%;width:14.8%;height:8.3%;"></button>
+            <button class="hotspot" data-stage="constable" aria-label="前往捕吏審問" style="left:9.8%;top:87.3%;width:14.7%;height:8.8%;"></button>
+            <button class="hotspot" data-stage="oldwoman" aria-label="前往老媼審問" style="left:74.3%;top:87.3%;width:14.8%;height:8.8%;"></button>
+            <button class="hotspot" data-stage="core" aria-label="進入核心審訊" style="left:40.8%;top:63.7%;width:18.8%;height:11.2%;"></button>
             <div id="stampLayer"></div>
           </div>
         </div>
